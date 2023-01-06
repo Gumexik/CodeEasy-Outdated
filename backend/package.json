@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "name": "codeeasy_backend",
+  "version": "1.0.0",
+  "description": "Server for CodeEasy application",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kacper Gumowski",
+  "license": "ISC"
+}
