@@ -1,18 +1,4 @@
-import { useState } from "react";
-
 export default function Login({ setShowModal }) {
-
-
-    const [formData, setFormData] = useState({});
-
-    function handleInputChange(event) {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
 
     return (
         <div
@@ -55,7 +41,7 @@ export default function Login({ setShowModal }) {
                             />
                         </div>
                         <a
-                            href="#"
+                            href="/"
                             className="text-xs text-purple-600 hover:underline"
                         >
                             Forget Password?
@@ -71,7 +57,7 @@ export default function Login({ setShowModal }) {
                         {" "}
                         Don't have an account?{" "}
                         <a
-                            href="#"
+                            href="/"
                             className="font-medium text-purple-600 hover:underline"
                         >
                             Sign up
