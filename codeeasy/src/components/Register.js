@@ -1,11 +1,11 @@
-export default function Login({ setShowModal, email, password, setEmail, setPassword, setRegister }) {
+import React from "react";
 
-
+const Register = ({ email, password, setEmail, setPassword, setRegister }) => {
     return (
         <div className='relative flex flex-col justify-center w-3/4 min-h-screen overflow-hidden'>
             <div className='modal w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
                 <h1 className='text-3xl font-semibold text-center text-black'>
-                    Sign in
+                    Create account
                 </h1>
                 <form className='mt-6'>
                     <div className='mb-2'>
@@ -33,23 +33,42 @@ export default function Login({ setShowModal, email, password, setEmail, setPass
                             type='password'
                             className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
                         />
+                        <label
+                            for='password'
+                            className='block text-sm font-semibold text-gray-800'
+                        >
+                            Repeat password
+                        </label>
+                        <input
+                            value={password}
+                            type='password'
+                            className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
+                        />
                     </div>
                     <div className='mt-12'>
                         <button className='w-full px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-[#fde904] rounded-md hover:bg-amber-300 focus:outline-none focus:bg-amber-400'>
-                            Login
+                            Register
                         </button>
                     </div>
                 </form>
 
                 <p className='mt-8 text-xs font-light text-center text-gray-700'>
                     {" "}
-                    Don't have an account?{" "}
+                    Already have an account?{" "}
                     <a
-                        onClick={(e) => { setRegister(true); e.preventDefault() }} href='/' className='font-medium text-amber-600 hover:underline'>
-                        Sign up
+                        onClick={(e) => {
+                            setRegister(false);
+                            e.preventDefault();
+                        }}
+                        href='/'
+                        className='font-medium text-amber-600 hover:underline'
+                    >
+                        Sign In
                     </a>
                 </p>
             </div>
         </div>
     );
-}
+};
+
+export default Register;

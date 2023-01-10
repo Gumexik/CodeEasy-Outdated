@@ -1,10 +1,12 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import ModalConditioning from "./ModalConditioning";
 import Navigation from "./Navigation";
 
 const Hero = () => {
 
     const [showModal, setShowModal] = useState(false);
+
+
 
     return (
         <>
@@ -44,7 +46,7 @@ const Hero = () => {
                     </div>
                 </div>
                 <div className='w-full mx-auto mt-20 text-center md:w-10/12'></div>
-                <Modal showModal={showModal} setShowModal={setShowModal} />
+                <ModalConditioning showModal={showModal} setShowModal={setShowModal} />
             </section>
         </>
 
