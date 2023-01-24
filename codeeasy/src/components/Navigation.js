@@ -1,6 +1,10 @@
 import logo from "../assets/logo.png";
+import ModalConditioning from "./ModalConditioning";
+import { useState } from "react";
 
-const Navigation = ({ setShowModal }) => {
+const Navigation = () => {
+    const [showModal, setShowModal] = useState(false);
+
     return (
         <header className='z-30 w-full px-2 py-4 bg-[#f3f4f6]'>
             <div className='flex md:flex-row flex-col items-center md:justify-between mx-auto max-w-7xl'>
@@ -13,8 +17,10 @@ const Navigation = ({ setShowModal }) => {
                         <a
                             href='/login'
                             className='mx-4 border-2 border-[#fde904] shadow-md py-[11px] px-[24px] rounded transition-all duration-[250ms] hover:bg-gray-200'
-                            onClick={(e) => { setShowModal(true); e.preventDefault() }}
-
+                            onClick={(e) => {
+                                setShowModal(true);
+                                e.preventDefault();
+                            }}
                         >
                             Log In/Register
                         </a>
@@ -30,6 +36,7 @@ const Navigation = ({ setShowModal }) => {
                     </a>
                 </div>
             </div>
+            <ModalConditioning showModal={showModal} setShowModal={setShowModal} />
         </header>
     );
 };

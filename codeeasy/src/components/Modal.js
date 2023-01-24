@@ -15,7 +15,7 @@ const Modal = ({ setShowModal }) => {
                     setShowModal(false);
                 }
             }}
-            className='absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-900 bg-opacity-40 overflow-hidden'
+            className='z-50 absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-900 bg-opacity-40 overflow-hidden'
         >
             {!register ? (
                 <Login
