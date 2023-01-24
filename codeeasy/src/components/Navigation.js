@@ -1,9 +1,15 @@
 import logo from "../assets/logo.png";
-import ModalConditioning from "./ModalConditioning";
+import Modal from "./Modal";
 import { useState } from "react";
 
 const Navigation = () => {
     const [showModal, setShowModal] = useState(false);
+
+    if (showModal === true) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "unset";
+    }
 
     return (
         <header className='z-30 w-full px-2 py-4 bg-[#f3f4f6]'>
@@ -36,7 +42,7 @@ const Navigation = () => {
                     </a>
                 </div>
             </div>
-            <ModalConditioning showModal={showModal} setShowModal={setShowModal} />
+            {showModal && <Modal setShowModal={setShowModal} />}
         </header>
     );
 };
