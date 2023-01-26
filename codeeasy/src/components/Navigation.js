@@ -1,6 +1,7 @@
 import logo from "../assets/logo.png";
 import Modal from "./Modal";
 import { useState } from "react";
+import LearnBtn from "./LearnBtn";
 
 const Navigation = () => {
     const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,8 @@ const Navigation = () => {
     } else {
         document.body.style.overflow = "unset";
     }
+
+
 
     return (
         <header className='z-30 w-full px-2 py-4 bg-[#f3f4f6]'>
@@ -31,15 +34,7 @@ const Navigation = () => {
                             Log In/Register
                         </a>
                     </div>
-                    <a
-                        href='/learn'
-                        className='bg-[#fde904] border-2 border-amber-400 shadow-md text-center rounded py-[11px] px-[24px] relative group overflow-hidden'
-                    >
-                        <div className='absolute inset-0 w-2 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full'></div>
-                        <span className='relative text-black group-hover:text-white'>
-                            Start Learning
-                        </span>
-                    </a>
+                    <LearnBtn />
                 </div>
             </div>
             {showModal && <Modal setShowModal={setShowModal} />}

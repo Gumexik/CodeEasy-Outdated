@@ -13,7 +13,7 @@ const Hero = () => {
                     fun and accessible for anyone.
                 </h1>
                 <p className='px-0 mb-6 text-lg text-gray-600 md:text-xl lg:px-24 md:text-center text-justify'>
-                    CodeEasy is designed to teach people the basics of JavaScript and
+                    CodeEasy is designed to teach students the basics of JavaScript and
                     encourage them to continue learning programming. It features
                     interactive lessons that guide users through the fundamentals of the
                     JavaScript language, including concepts such as variables, data types,
@@ -31,7 +31,7 @@ const Hero = () => {
                         className='bg-[#fde904] border-2 border-amber-400 shadow text-center rounded py-[11px] px-[24px] relative group overflow-hidden'
                     >
                         <div className='absolute inset-0 w-2 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full'></div>
-                        <span className='relative group-hover:text-white group-hover:'>
+                        <span className='relative group-hover:text-white'>
                             Start Learning
                         </span>
                     </a>
