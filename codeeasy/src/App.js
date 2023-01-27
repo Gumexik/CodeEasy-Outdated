@@ -3,6 +3,8 @@ import LandingPage from "./pages/LandingPage";
 
 function App() {
 
+
+
   let component
   switch (window.location.pathname) {
     case "/":
@@ -16,7 +18,7 @@ function App() {
   }
 
   return (
-    <div className=" font-lato">
+    <div className=" font-lato dark:bg-gray-800">
       {component}
     </div>
   );

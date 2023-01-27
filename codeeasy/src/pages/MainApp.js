@@ -10,7 +10,7 @@ function MainApp() {
             setSrcDoc(
                 `
               <html>
-                <body><h1>Testing functionality of the Iframe</h1>
+                <body><h1>Testing functionality of the Iframe. <br />There is a paragraph with id test_script to work with.</h1>
                 <p id="test_script"></p></body>
                 <style></style>
                 <script>${js}</script>
@@ -22,30 +22,31 @@ function MainApp() {
     }, [js]);
 
     return (
-        <div className='bg-gray-800 h-screen'>
+        <div>
             <Navigation />
             <div className='flex'>
-                <div className='w-1/2 bg-gray-700 p-4 h-[calc(100vh-96px)]'>
+                <div className='w-1/2  p-4 h-[calc(100vh-96px)]'>
                     <textarea
                         onChange={(e) => {
                             setJs(e.target.value)
                         }}
-                        className='bg-gray-600 rounded p-4 text-white h-full w-full resize-none focus:outline-none'
+                        className='dark:bg-gray-600 dark:text-white dark:border-none border border-black  bg-gray-200  rounded p-4  h-full w-full resize-none focus:outline-none'
                         placeholder='Enter code here'
                         autoComplete='off'
                         spellCheck='false'
+                        defaultValue='document.getElementById("test_script").innerHTML = "works!"'
                     ></textarea>
                 </div>
-                <div className='w-1/2 bg-gray-700 p-4 border border-black'>
+                <div className='w-1/2 p-4 dark:text-white'>
                     <iframe
                         sandbox='allow-scripts'
                         srcDoc={srcDoc}
                         title='JavaScript Iframe'
-                        className='h-full w-full rounded bg-[#f3f4f6]'
+                        className='h-full w-full rounded bg-[#f3f4f6] border border-black dark:border-none dark:bg-gray-600 dark:text-white'
                     ></iframe>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

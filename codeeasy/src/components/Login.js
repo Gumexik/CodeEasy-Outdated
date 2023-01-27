@@ -3,15 +3,15 @@ export default function Login({ setShowModal, email, password, setEmail, setPass
 
     return (
         <div className='relative flex flex-col justify-center w-3/4 min-h-screen overflow-hidden'>
-            <div className='modal w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
-                <h1 className='text-3xl font-semibold text-center text-black'>
+            <div className='dark:bg-black dark:border dark:border-gray-400 modal w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
+                <h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
                     Sign in
                 </h1>
                 <form className='mt-6'>
                     <div className='mb-2'>
                         <label
                             for='email'
-                            className='block text-sm font-semibold text-gray-800'
+                            className='block text-sm font-semibold text-gray-800 dark:text-white'
                         >
                             Email
                         </label>
@@ -24,14 +24,14 @@ export default function Login({ setShowModal, email, password, setEmail, setPass
                     <div className='mb-2'>
                         <label
                             for='password'
-                            className='block text-sm font-semibold text-gray-800'
+                            className='block text-sm font-semibold text-gray-800 dark:text-white'
                         >
                             Password
                         </label>
                         <input
                             value={password}
                             type='password'
-                            className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
+                            className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40 '
                         />
                     </div>
                     <div className='mt-12'>
@@ -41,11 +41,11 @@ export default function Login({ setShowModal, email, password, setEmail, setPass
                     </div>
                 </form>
 
-                <p className='mt-8 text-xs font-light text-center text-gray-700'>
+                <p className='mt-8 text-xs font-light text-center text-gray-700 dark:text-white'>
                     {" "}
                     Don't have an account?{" "}
                     <a
-                        onClick={(e) => { setRegister(true); e.preventDefault() }} href='/' className='font-medium text-amber-600 hover:underline'>
+                        onClick={(e) => { setRegister(true); e.preventDefault() }} href='/' className='font-medium text-amber-600 hover:underline dark:text-amber-300'>
                         Sign up
                     </a>
                 </p>
