@@ -1,5 +1,6 @@
 import logo from "../assets/logo.png";
-import theme_img from "../assets/theme.png"
+import theme_dark from "../assets/theme.png"
+import theme_light from "../assets/theme_white.png"
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import LearnBtn from "./LearnBtn";
@@ -48,8 +49,8 @@ const Navigation = () => {
                     </div>
                     <LearnBtn />
                 </div>
-                <button className='absolute right-12 p-2 dark:bg-white rounded-md border border-black' onClick={handleThemeSwitch}>
-                    <img src={theme_img} alt="dark/light mode theme" className="w-9" />
+                <button className='absolute right-12 p-2 dark:bg-transparent dark:border-white rounded-md border border-black' onClick={handleThemeSwitch}>
+                    <img src={theme === "dark" ? theme_light : theme_dark} alt="dark/light mode theme" className="w-9" />
                 </button>
             </div>
             {showModal && <Modal setShowModal={setShowModal} />}
