@@ -1,5 +1,5 @@
-import MainApp from "./components/app/MainApp";
-import LandingPage from "./components/LandingPage";
+import MainApp from "./pages/MainApp";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
 

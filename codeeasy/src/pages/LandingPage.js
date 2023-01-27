@@ -1,5 +1,5 @@
-import Hero from "./Hero";
-import Navigation from "./Navigation";
+import Hero from "../components/Hero";
+import Navigation from "../components/Navigation";
 
 const LandingPage = () => {
 
