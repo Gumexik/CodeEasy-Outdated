@@ -24,8 +24,9 @@ function MainApp() {
     return (
         <div>
             <Navigation />
-            <div className='flex'>
-                <div className='w-1/2  p-4 h-[calc(100vh-96px)]'>
+            <div className='flex flex-col md:flex-row'>
+                <div className='md:w-1/2 w-full p-4 h-60
+                 md:h-[calc(100vh-96px)]'>
                     <textarea
                         onChange={(e) => {
                             setJs(e.target.value)
@@ -37,12 +38,12 @@ function MainApp() {
                         defaultValue='document.getElementById("test_script").innerHTML = "works!"'
                     ></textarea>
                 </div>
-                <div className='w-1/2 p-4 dark:text-white'>
+                <div className='md:w-1/2 p-4 dark:text-white'>
                     <iframe
                         sandbox='allow-scripts'
                         srcDoc={srcDoc}
                         title='JavaScript Iframe'
-                        className='h-full w-full rounded bg-[#f3f4f6] border border-black dark:border-none dark:bg-gray-600 dark:text-white'
+                        className='md:h-full h-80 w-full rounded bg-[#f3f4f6] border border-black dark:border-none dark:bg-gray-600 dark:text-white'
                     ></iframe>
                 </div>
             </div>
