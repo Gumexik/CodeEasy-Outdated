@@ -50,7 +50,7 @@ const Navigation = () => {
                     <LearnBtn />
                 </div>
                 <button className='absolute right-12 p-2 dark:bg-transparent dark:border-white rounded-md border border-black' onClick={handleThemeSwitch}>
-                    <img src={theme === "dark" ? theme_light : theme_dark} alt="dark/light mode theme" className="w-9" />
+                    <img src={theme === "dark" ? theme_light : theme_dark} alt="dark/light mode switch" className="w-9" />
                 </button>
             </div>
             {showModal && <Modal setShowModal={setShowModal} />}
