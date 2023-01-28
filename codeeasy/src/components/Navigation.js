@@ -6,10 +6,15 @@ import { useState, useEffect } from "react";
 import LearnBtn from "./LearnBtn";
 
 const Navigation = () => {
+    const localTheme = localStorage.getItem("Mode")
+
+
     const [showModal, setShowModal] = useState(false);
-    const [theme, setTheme] = useState("light");
+    const [theme, setTheme] = useState(localTheme);
 
     useEffect(() => {
+        localStorage.setItem("Mode", theme)
+
         if (theme === "dark") {
             document.documentElement.classList.add("dark");
         } else {
@@ -28,7 +33,7 @@ const Navigation = () => {
     }
 
     return (
-        <header className='z-30 w-full md:px-32 px-10 py-4 bg-[#f3f4f6] dark:bg-gray-900 relative'>
+        <header className='z-30 w-full md:px-32 px-10 py-4 bg-[#f3f4f6] dark:bg-gray-900 relative drop-shadow-md dark:drop-shadow-[0_4px_3px_rgba(255,255,255,0.05)]'>
             <div className='flex md:flex-row flex-col md:justify-between mx-auto max-w-7xl'>
                 <a href='/' title='CodeEasy Home Page' className='flex items-center ml-4'>
                     <img src={logo} className='h-16' alt='CodeEasy logo' />
