@@ -1,5 +1,6 @@
 import Navigation from "../components/Navigation";
 import { useState, useEffect } from "react";
+import SideNav from "../components/SideNav";
 
 function MainApp() {
     const [js, setJs] = useState("");
@@ -25,29 +26,32 @@ function MainApp() {
         <div>
             <Navigation />
             <div className='flex flex-col md:flex-row'>
-                <div className='md:w-1/2 w-full p-4 h-60
+                <SideNav />
+                <div className='flex flex-col md:flex-row w-full'>
+                    <div className='md:w-1/2 w-full p-4 h-60
                  md:h-[calc(100vh-96px)]'>
-                    <textarea
-                        onChange={(e) => {
-                            setJs(e.target.value)
-                        }}
-                        className='dark:bg-gray-600 dark:text-white dark:border-none border border-black  bg-gray-200  rounded p-4  h-full w-full resize-none focus:outline-none'
-                        placeholder='Enter code here'
-                        autoComplete='off'
-                        spellCheck='false'
-                        defaultValue='document.getElementById("test_script").innerHTML = "works!"'
-                    ></textarea>
-                </div>
-                <div className='md:w-1/2 p-4 dark:text-white'>
-                    <iframe
-                        sandbox='allow-scripts'
-                        srcDoc={srcDoc}
-                        title='JavaScript Iframe'
-                        className='md:h-full h-80 w-full rounded bg-[#f3f4f6] border border-black dark:border-none dark:bg-gray-600 dark:text-white'
-                    ></iframe>
+                        <textarea
+                            onChange={(e) => {
+                                setJs(e.target.value)
+                            }}
+                            className='dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200  rounded p-4  h-full w-full resize-none focus:outline-none'
+                            placeholder='Enter code here'
+                            autoComplete='off'
+                            spellCheck='false'
+                            defaultValue='document.getElementById("test_script").innerHTML = "works!"'
+                        ></textarea>
+                    </div>
+                    <div className='md:w-1/2 p-4 dark:text-white'>
+                        <iframe
+                            sandbox='allow-scripts'
+                            srcDoc={srcDoc}
+                            title='JavaScript Iframe'
+                            className='md:h-full h-80 w-full rounded bg-[#f3f4f6] border border-black dark:border dark:bg-gray-600 dark:text-white dark:border-gray-500'
+                        ></iframe>
+                    </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 
