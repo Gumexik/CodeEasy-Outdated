@@ -9,9 +9,24 @@ const AppFeatures = ({ lesson }) => {
 			setSrcDoc(
 				`
               <html>
-                <body><h1>Testing functionality of the Iframe. <br />There is a paragraph with id test_script to work with.</h1>
+                <body>
+				<div>
+				<p>Testing functionality of the Iframe. <br />There is a paragraph with id test_script to work with.</p>
                 <p id="test_script"></p></body>
-                <style></style>
+                </div>
+				<style>
+				body {
+					margin:0;
+					padding:0;
+					box-sizing: border-box;
+				}
+				div {
+					padding: 5px 10px 5px 10px;
+					margin:5px;
+					background: white;
+					border-radius:10px;
+				}
+				</style>
                 <script>${js}</script>
               </html>
             `

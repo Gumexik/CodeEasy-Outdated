@@ -4,9 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const port = 5000;
 
-app.listen(port, () => {
-	console.log(`Listening on port ${port}`);
-});
+app.use(express.json());
 
 mongoose.connect("mongodb://localhost:27017/jwt", {});
 app.use(
@@ -17,8 +15,18 @@ app.use(
 	})
 );
 
-app.post("/api/login", (req, res) => {
-	const { username, password } = req.body;
+app.post("/login", (req, res) => {
+	res.json("login");
 });
 
-app.use(express.json());
+app.post("/register", (req, res) => {
+	res.json("register");
+});
+
+app.post("/profile", (req, res) => {
+	res.json("profile");
+});
+
+app.listen(port, () => {
+	console.log(`Listening on port ${port}`);
+});
