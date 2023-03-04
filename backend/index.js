@@ -1,8 +1,13 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const mongoose = require("mongoose");
-const port = 5000;
+
+// express app
+const app = express();
+
+// middleware
 app.use(express.json());
 
 app.use(
@@ -13,27 +18,27 @@ app.use(
 	})
 );
 
+// 404 page
+app.use(function (req, res, next) {
+	res.send("This page does not exist!");
+});
+
+// database
 mongoose
-	.connect("mongodb://localhost:27017/login", {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
+	.connect(process.env.MONGO_URI)
 	.then(() => {
 		console.log("Database connected");
-		app.listen(port, () => {
-			console.log(`Listening on port ${port}`);
+		app.listen(process.env.PORT, () => {
+			console.log(`Listening on port ${process.env.PORT}`);
 		});
 	})
 	.catch((err) => {
 		console.log(err.message);
 	});
 
+// routes
 app.post("/api", (req, res) => {
 	// const {username, password} = req.body
 	res.json("hey it works!");
-});
-
-// 404 page
-app.use(function (req, res, next) {
-	res.send("This page does not exist!");
+	console.log(username, password);
 });
