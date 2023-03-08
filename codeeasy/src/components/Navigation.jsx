@@ -4,6 +4,7 @@ import theme_light from "../assets/theme_white.png";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import LearnBtn from "./LearnBtn";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
 	const localTheme = localStorage.getItem("Mode");
@@ -34,18 +35,15 @@ const Navigation = () => {
 	return (
 		<header className='z-30 w-full md:px-32 px-10 py-4 bg-[#f3f4f6] dark:bg-gray-900 relative drop-shadow-md dark:drop-shadow-[0_4px_3px_rgba(255,255,255,0.05)]'>
 			<nav className='flex md:flex-row flex-col md:justify-between mx-auto max-w-7xl'>
-				<a
-					href='/'
-					title='CodeEasy Home Page'
-					className='flex items-center ml-4'
-				>
+				<Link to='/' className='flex items-center ml-4'>
 					<img src={logo} className='h-16' alt='CodeEasy logo' />
 					<span className='font-bold text-xl dark:text-white'>CodeEasy</span>
-				</a>
+				</Link>
+
 				<div className='flex items-center justify-center my-4 space-x-1 md:my-0'>
 					<div className='flex items-center'>
-						<a
-							href='/login'
+						<Link
+							to='/login'
 							className='text-sm border-4 md:text-base mx-4 md:border-2 border-[#fde904] shadow-md py-[11px] px-[24px] rounded transition-all duration-[250ms] hover:bg-gray-200 dark:text-white dark:hover:bg-black'
 							onClick={(e) => {
 								setShowModal(true);
@@ -53,7 +51,7 @@ const Navigation = () => {
 							}}
 						>
 							Log In/Register
-						</a>
+						</Link>
 					</div>
 					<LearnBtn />
 				</div>

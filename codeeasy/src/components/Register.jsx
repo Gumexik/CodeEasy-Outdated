@@ -8,13 +8,24 @@ const Register = ({ email, password, setEmail, setPassword, setRegister }) => {
 				<form className='mt-6'>
 					<div className='mb-2'>
 						<label
+							for='username'
+							className='block text-sm font-semibold text-gray-800 dark:text-white'
+						>
+							Username
+						</label>
+						<input
+							type='email'
+							className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
+						/>
+					</div>
+					<div className='mb-2'>
+						<label
 							for='email'
 							className='block text-sm font-semibold text-gray-800 dark:text-white'
 						>
 							Email
 						</label>
 						<input
-							value={email}
 							type='email'
 							className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
 						/>
@@ -27,7 +38,6 @@ const Register = ({ email, password, setEmail, setPassword, setRegister }) => {
 							Password
 						</label>
 						<input
-							value={password}
 							type='password'
 							className='block w-full px-4 py-2 mt-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
 						/>
@@ -38,7 +48,6 @@ const Register = ({ email, password, setEmail, setPassword, setRegister }) => {
 							Repeat password
 						</label>
 						<input
-							value={password}
 							type='password'
 							className='block w-full px-4 py-2 text-black bg-white border rounded-md focus:border-[#fde904] focus:ring-[#fde904] focus:outline-none focus:ring focus:ring-opacity-40'
 						/>

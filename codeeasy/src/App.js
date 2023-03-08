@@ -6,7 +6,7 @@ function App() {
 	return (
 		<div className='font-lato dark:bg-gray-800'>
 			<Routes>
-				<Route path='/' element={<LandingPage />} />
+				<Route exact path='/' element={<LandingPage />} />
 				<Route path='/learn' element={<MainApp />} />
 			</Routes>
 		</div>
