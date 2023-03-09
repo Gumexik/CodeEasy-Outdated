@@ -43,11 +43,9 @@ const Navigation = () => {
 				<div className='flex items-center justify-center my-4 space-x-1 md:my-0'>
 					<div className='flex items-center'>
 						<Link
-							to='/login'
 							className='text-sm border-4 md:text-base mx-4 md:border-2 border-[#fde904] shadow-md py-[11px] px-[24px] rounded transition-all duration-[250ms] hover:bg-gray-200 dark:text-white dark:hover:bg-black'
 							onClick={(e) => {
 								setShowModal(true);
-								e.preventDefault();
 							}}
 						>
 							Log In/Register

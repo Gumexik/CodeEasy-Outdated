@@ -1,26 +1,24 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const User = require("./models/users");
+const cors = require("cors");
+const { loginUser } = require("./controllers/userController");
 
 // express app
 const app = express();
 
 // middleware
 app.use(express.json());
+app.use(cors());
 
-const urlencodedParser = bodyParser.urlencoded({ extend: false });
-app.use(bodyParser.json(), urlencodedParser);
+// const urlencodedParser = bodyParser.urlencoded({ extend: false });
+// app.use(bodyParser.json(), urlencodedParser);
 
 // routes
 
-app.use("/login", require("./routes/loginRoute"));
-app.use("/register", require("./routes/registerRoute"));
+app.post("/login", loginUser);
 
 // 404 page
 app.use(function (req, res, next) {
@@ -28,6 +26,9 @@ app.use(function (req, res, next) {
 });
 
 // database
+
+mongoose.set("strictQuery", false);
+
 mongoose
 	.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,

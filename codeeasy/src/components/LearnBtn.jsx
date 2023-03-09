@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LearnBtn = () => {
-	if (window.location.hash === "#/" || window.location.hash === "") {
+	if (window.location.pathname === "/") {
 		return (
 			<Link
 				to='/learn'
