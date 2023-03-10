@@ -2,9 +2,8 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
-const { loginUser } = require("./controllers/userController");
+const { loginUser, signupUser } = require("./controllers/userController");
 
 // express app
 const app = express();
@@ -12,27 +11,20 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cors());
-
-// const urlencodedParser = bodyParser.urlencoded({ extend: false });
-// app.use(bodyParser.json(), urlencodedParser);
+app.use(express.static("client"));
+mongoose.set("strictQuery", false);
 
 // routes
-
 app.post("/login", loginUser);
+app.post("/signup", signupUser);
 
-// 404 page
-app.use(function (req, res, next) {
-	res.send("This page does not exist!");
-});
-
-// database
-
-mongoose.set("strictQuery", false);
+// database and server connection
 
 mongoose
 	.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		useCreateIndex: true,
 	})
 	.then(() => {
 		console.log("Database connected");

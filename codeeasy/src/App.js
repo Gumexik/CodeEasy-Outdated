@@ -1,6 +1,6 @@
 import MainApp from "./pages/MainApp";
 import LandingPage from "./pages/LandingPage";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
 	return (
@@ -8,6 +8,7 @@ function App() {
 			<Routes>
 				<Route exact path='/' element={<LandingPage />} />
 				<Route path='/learn' element={<MainApp />} />
+				<Route path='*' element={<Navigate to='/' replace />} />
 			</Routes>
 		</div>
 	);

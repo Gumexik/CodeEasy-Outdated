@@ -3,9 +3,6 @@ import Login from "./Login";
 import Register from "./Register";
 
 const Modal = ({ setShowModal }) => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [repeatPassword, setRepeatPassword] = useState("");
 	const [register, setRegister] = useState(false);
 
 	return (
@@ -15,26 +12,12 @@ const Modal = ({ setShowModal }) => {
 					setShowModal(false);
 				}
 			}}
-			className='z-50 absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-900 bg-opacity-40 overflow-hidden'
+			className='z-50 absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-900 bg-opacity-80 overflow-hidden'
 		>
 			{!register ? (
-				<Login
-					setShowModal={setShowModal}
-					setEmail={setEmail}
-					setPassword={setPassword}
-					email={email}
-					password={password}
-					setRegister={setRegister}
-				/>
+				<Login setShowModal={setShowModal} setRegister={setRegister} />
 			) : (
-				<Register
-					setShowModal={setShowModal}
-					setRegister={setRegister}
-					setEmail={setEmail}
-					setPassword={setPassword}
-					setRepeatPassword={setRepeatPassword}
-					repeatPassword={repeatPassword}
-				/>
+				<Register setShowModal={setShowModal} setRegister={setRegister} />
 			)}
 		</div>
 	);
