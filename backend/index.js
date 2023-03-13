@@ -3,7 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const { loginUser, signupUser } = require("./controllers/userController");
+const {
+	loginUser,
+	signupUser,
+	validToken,
+	deleteUser,
+	getUserInfo,
+} = require("./controllers/userController");
+const auth = require("./middleware/auth");
 
 // express app
 const app = express();
@@ -17,21 +24,21 @@ mongoose.set("strictQuery", false);
 // routes
 app.post("/login", loginUser);
 app.post("/signup", signupUser);
+app.post("/tokenIsValid", validToken);
+app.get("/users", auth, getUserInfo),
+	// database and server connection
 
-// database and server connection
-
-mongoose
-	.connect(process.env.MONGO_URI, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-	})
-	.then(() => {
-		console.log("Database connected");
-		app.listen(process.env.PORT, () => {
-			console.log(`Listening on port ${process.env.PORT}`);
+	mongoose
+		.connect(process.env.MONGO_URI, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		})
+		.then(() => {
+			console.log("Database connected");
+			app.listen(process.env.PORT, () => {
+				console.log(`Listening on port ${process.env.PORT}`);
+			});
+		})
+		.catch((err) => {
+			console.log(err.message);
 		});
-	})
-	.catch((err) => {
-		console.log(err.message);
-	});

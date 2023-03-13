@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import userContext from "../context/userContext";
+import ErrorNotice from "./ErrorNotice";
 
 export default function Login({ setShowModal, setRegister }) {
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
+	const [error, setError] = useState();
+	const { setUserData } = useContext(userContext);
 
-	const handleLoginSubmit = () => {
-		fetch("http://localhost:5000/login", {
-			method: "POST",
-			body: JSON.stringify({
-				email: email,
-				password: password,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+	const handleLoginSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const loginUser = { email, password };
+			const loginResponse = await axios.post(
+				"http://localhost:5000/login",
+				loginUser
+			);
+			setUserData({
+				token: loginResponse.data.token,
+				user: loginResponse.data.user,
+			});
+			localStorage.setItem("auth-token", loginResponse.data.token);
+			setShowModal(false);
+		} catch (err) {
+			err.response.data.message && setError(err.response.data.message);
+		}
 	};
 
 	return (
@@ -23,13 +34,10 @@ export default function Login({ setShowModal, setRegister }) {
 				<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
 					Sign in
 				</h1>
-				<form
-					onSubmit={(e) => {
-						setShowModal(false);
-						handleLoginSubmit();
-					}}
-					className='mt-6'
-				>
+				{error && (
+					<ErrorNotice message={error} clearError={() => setError(undefined)} />
+				)}
+				<form onSubmit={handleLoginSubmit} className='mt-6'>
 					<div className='mb-2'>
 						<label
 							htmlFor='email'

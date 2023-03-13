@@ -7,7 +7,7 @@ const Register = ({ setRegister, setShowModal }) => {
 	const [username, setUsername] = useState("");
 
 	const handleRegisterSubmit = () => {
-		fetch("http://localhost:5000/signup", {
+		fetch("/signup", {
 			method: "POST",
 			body: JSON.stringify({
 				email: email,
@@ -36,7 +36,7 @@ const Register = ({ setRegister, setShowModal }) => {
 				>
 					<div className='mb-2'>
 						<label
-							for='username'
+							htmlFor='username'
 							className='block text-sm font-semibold text-gray-800 dark:text-white'
 						>
 							Username

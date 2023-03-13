@@ -8,26 +8,21 @@ const AppFeatures = ({ lesson }) => {
 		const timeOut = setTimeout(() => {
 			setSrcDoc(
 				`
-              <html>
-                <body>
-				<div>
-				<p>Testing functionality of the Iframe. <br />There is a paragraph with id test_script to work with.</p>
-                <p id="test_script"></p></body>
-                </div>
-				<style>
-				body {
-					margin:0;
-					padding:0;
-					box-sizing: border-box;
-				}
-				div {
-					padding: 5px 10px 5px 10px;
-					margin:5px;
-					background: white;
-					border-radius:10px;
-				}
-				</style>
+				<!DOCTYPE html>
+				<html>
+				<body>
+				
+				<h2>My First JavaScript</h2>
+				
+				<button type="button"
+				onclick="document.getElementById('demo').innerHTML = Date()">
+				Click me to display Date and Time.</button>
+				
+				<p id="demo"></p>
+				
+				
                 <script>${js}</script>
+				</body>
               </html>
             `
 			);
@@ -38,11 +33,17 @@ const AppFeatures = ({ lesson }) => {
 	return (
 		<div className='md:flex md:flex-row w-full h-full md:h-[calc(100vh-96px)]'>
 			<div className='inline-block md:w-1/2 w-full p-4 h-60 md:h-full md:flex justify-between flex-col gap-5'>
-				<div className='h-fit'>
-					<div className='mb-6 md:mb-0 dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black bg-gray-200 rounded p-4 w-full resize-none focus:outline-none'>
-						<p className='dark:bg-gray-900 bg-gray-300 rounded p-4 text-justify text-lg'>
-							{lesson.description}
-						</p>
+				<div className='min-h-48'>
+					<div className='mb-6 md:mb-0 dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black bg-gray-200 rounded p-4 w-full focus:outline-none'>
+						<textarea
+							readOnly
+							value={
+								!lesson.description
+									? "Welcome to CodeEasy! Start by chosing option from the side menu"
+									: lesson.description
+							}
+							className='dark:bg-gray-900 bg-gray-300 rounded p-4 text-lg w-full h-48 resize-none'
+						></textarea>
 					</div>
 				</div>
 				<div className='h-full'>
@@ -54,8 +55,8 @@ const AppFeatures = ({ lesson }) => {
 						placeholder='Enter code here'
 						autoComplete='off'
 						spellCheck='false'
-						defaultValue='document.getElementById("test_script").innerHTML = "works!"'
-					></textarea>
+						defaultValue={lesson.code}
+					/>
 				</div>
 			</div>
 			<div className='md:w-1/2 p-4 dark:text-white block'>

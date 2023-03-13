@@ -1,14 +1,13 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
 const User = require("../models/user");
+const router = require("express").Router();
 
 //  signup user
 
 const signupUser = async (req, res) => {
 	try {
 		const { username, password, repeatPassword, email } = req.body;
-		console.log(username, password, repeatPassword, email);
 
 		if (!username || !password || !repeatPassword || !email)
 			return res
@@ -26,14 +25,20 @@ const signupUser = async (req, res) => {
 					"Password doesn't match. Make sure that both passwords are the same.",
 			});
 
-		const existingUser = await User.findOne({ email: email });
+		const existingUserEmail = await User.findOne({ email: email });
+		const existingUsername = await User.findOne({ username: username });
 
-		if (existingUser)
-			res
+		if (existingUserEmail)
+			return res
 				.status(400)
 				.json({ message: "An account with this email already exists." });
 
-		const salt = await bcrypt.genSalt();
+		if (existingUsername)
+			return res
+				.status(400)
+				.json({ message: "An account with this username already exists." });
+
+		const salt = await bcrypt.genSalt(10);
 
 		const passwordHash = await bcrypt.hash(password, salt);
 
@@ -46,6 +51,7 @@ const signupUser = async (req, res) => {
 		const savedUser = await newUser.save();
 
 		res.json(savedUser);
+		console.log("User created");
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
@@ -54,8 +60,71 @@ const signupUser = async (req, res) => {
 // login user
 
 const loginUser = async (req, res) => {
-	const { email, password } = req.body;
-	console.log(email, password);
+	try {
+		const { email, password } = req.body;
+
+		// validate
+		if (!email || !password)
+			return res.status(400).json({ message: "All fields need to be filled." });
+
+		const user = await User.findOne({ email: email });
+
+		if (!user)
+			return res
+				.status(400)
+				.json({ message: "There is no user with this email registered." });
+
+		const isMatch = await bcrypt.compare(password, user.password);
+
+		if (!isMatch) return res.status(400).json({ message: "Invalid password" });
+
+		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+		res.json({
+			token,
+			user: {
+				id: user._id,
+				username: user.username,
+			},
+		});
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+	console.log("data");
 };
 
-module.exports = { signupUser, loginUser };
+// delete user
+
+const deleteUser = async (req, res) => {
+	try {
+		const deletedUser = await User.findByIdAndDelete(req.user);
+		res.json(deletedUser);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+// Check if token is valid
+const validToken = async (req, res) => {
+	try {
+		const token = req.header("x-auth-token");
+		if (!token) return res.json(false);
+		const verified = jwt.verify(token, process.env.JWT_SECRET);
+		if (!verified) return res.json(false);
+		const user = await User.findById(verified.id);
+		if (!user) return res.json(false);
+		return res.json(true);
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+// Get user info
+const getUserInfo = async (req, res) => {
+	const user = await User.findById(req.user);
+	res.json({
+		displayName: user.username,
+		id: user._id,
+		email: user.email,
+	});
+};
+
+module.exports = { signupUser, loginUser, validToken, deleteUser, getUserInfo };
