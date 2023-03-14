@@ -10,6 +10,12 @@ const {
 	deleteUser,
 	getUserInfo,
 } = require("./controllers/userController");
+
+const {
+	getAllProjects,
+	newProject,
+} = require("./controllers/projectController");
+
 const auth = require("./middleware/auth");
 
 // express app
@@ -26,19 +32,23 @@ app.post("/login", loginUser);
 app.post("/signup", signupUser);
 app.post("/tokenIsValid", validToken);
 app.get("/users", auth, getUserInfo),
-	// database and server connection
+	// projects routes
+	app.get("/user/newProject", auth, newProject);
+app.get("/user/projects", auth, getAllProjects);
 
-	mongoose
-		.connect(process.env.MONGO_URI, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		})
-		.then(() => {
-			console.log("Database connected");
-			app.listen(process.env.PORT, () => {
-				console.log(`Listening on port ${process.env.PORT}`);
-			});
-		})
-		.catch((err) => {
-			console.log(err.message);
+// database and server connection
+
+mongoose
+	.connect(process.env.MONGO_URI, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		console.log("Database connected");
+		app.listen(process.env.PORT, () => {
+			console.log(`Listening on port ${process.env.PORT}`);
 		});
+	})
+	.catch((err) => {
+		console.log(err.message);
+	});

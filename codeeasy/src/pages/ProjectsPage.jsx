@@ -18,7 +18,7 @@ function ProjectPage() {
 						</button>
 					</Link>
 				</div>
-				<div className='flex gap-12 flex-wrap mb-12 justify-center md:justify-between'>
+				<div className='flex gap-12 flex-wrap mb-12 justify-center md:justify-between overflow-hidden'>
 					<ProjectCard />
 					<ProjectCard />
 					<ProjectCard />

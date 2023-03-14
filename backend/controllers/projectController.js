@@ -13,17 +13,29 @@ const updateProject = async (req, res) => {
 	const response = await fetch;
 	const data = await response.json();
 };
+// get single project
+
+const getSingleProject = async (req, res) => {
+	const response = await fetch;
+	const data = await response.json();
+};
 // delete project
 
 const deleteProject = async (req, res) => {
 	const response = await fetch;
 	const data = await response.json();
 };
-// update project
+// get all project
 
-const showAllProjects = async (req, res) => {
+const getAllProjects = async (req, res) => {
 	const response = await fetch;
 	const data = await response.json();
 };
 
-module.exports = { newProject, updateProject, deleteProject, showAllProjects };
+module.exports = {
+	newProject,
+	updateProject,
+	deleteProject,
+	getAllProjects,
+	getSingleProject,
+};
