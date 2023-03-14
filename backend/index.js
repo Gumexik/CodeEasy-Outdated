@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.static("client"));
 mongoose.set("strictQuery", false);
 
-// routes
+// user routes
 app.post("/login", loginUser);
 app.post("/signup", signupUser);
 app.post("/tokenIsValid", validToken);

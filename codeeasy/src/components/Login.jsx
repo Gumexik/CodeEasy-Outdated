@@ -22,7 +22,8 @@ export default function Login({ setShowModal, setRegister }) {
 				user: loginResponse.data.user,
 			});
 			localStorage.setItem("auth-token", loginResponse.data.token);
-			setShowModal(false);
+
+			window.location.reload(false);
 		} catch (err) {
 			err.response.data.message && setError(err.response.data.message);
 		}

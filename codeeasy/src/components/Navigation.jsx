@@ -5,6 +5,7 @@ import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import LearnBtn from "./LearnBtn";
 import { Link } from "react-router-dom";
+import NavLinks from "./NavLinks";
 
 const Navigation = () => {
 	const localTheme = localStorage.getItem("Mode");
@@ -41,16 +42,12 @@ const Navigation = () => {
 				</Link>
 
 				<div className='flex items-center justify-center my-4 space-x-1 md:my-0'>
-					<div className='flex items-center'>
-						<Link
-							className='text-sm border-4 md:text-base mx-4 md:border-2 border-[#fde904] shadow-md py-[11px] px-[24px] rounded transition-all duration-[250ms] hover:bg-gray-200 dark:text-white dark:hover:bg-black'
-							onClick={(e) => {
-								setShowModal(true);
-							}}
-						>
-							Log In/Register
-						</Link>
+					<NavLinks setShowModal={setShowModal} />
+					<div className='hidden md:flex'>
+						<LearnBtn />
 					</div>
+				</div>
+				<div className='mx-auto md:hidden'>
 					<LearnBtn />
 				</div>
 				<button

@@ -1,24 +1,35 @@
 import { useState } from "react";
+import { useContext } from "react";
+import userContext from "../context/userContext";
+import axios from "axios";
+import ErrorNotice from "./ErrorNotice";
 
 const Register = ({ setRegister, setShowModal }) => {
 	const [password, setPassword] = useState("");
 	const [repeatPassword, setrepeatPassword] = useState("");
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
+	const [error, setError] = useState();
+	const { setUserData } = useContext(userContext);
 
-	const handleRegisterSubmit = () => {
-		fetch("/signup", {
-			method: "POST",
-			body: JSON.stringify({
-				email: email,
-				password: password,
-				username: username,
-				repeatPassword: repeatPassword,
-			}),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+	const handleRegisterSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const newUser = { email, password, repeatPassword, username };
+			await axios.post("http://localhost:5000/signup", newUser);
+			const loginResponse = await axios.post("http://localhost:5000/login", {
+				email,
+				password,
+			});
+			setUserData({
+				token: loginResponse.data.token,
+				user: loginResponse.data.user,
+			});
+			localStorage.setItem("auth-token", loginResponse.data.token);
+			window.location.reload(false);
+		} catch (err) {
+			err.response.data.message && setError(err.response.data.message);
+		}
 	};
 
 	return (
@@ -27,13 +38,10 @@ const Register = ({ setRegister, setShowModal }) => {
 				<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
 					Create account
 				</h1>
-				<form
-					onSubmit={(e) => {
-						handleRegisterSubmit();
-						setShowModal(false);
-					}}
-					className='mt-6'
-				>
+				{error && (
+					<ErrorNotice message={error} clearError={() => setError(undefined)} />
+				)}
+				<form onSubmit={handleRegisterSubmit} className='mt-6'>
 					<div className='mb-2'>
 						<label
 							htmlFor='username'

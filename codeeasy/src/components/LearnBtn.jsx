@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const LearnBtn = () => {
-	if (window.location.pathname === "/") {
+	if (
+		window.location.pathname === "/" ||
+		window.location.pathname === "/profile" ||
+		window.location.pathname === "/projects" ||
+		window.location.pathname === "/newproject"
+	) {
 		return (
 			<Link
 				to='/learn'

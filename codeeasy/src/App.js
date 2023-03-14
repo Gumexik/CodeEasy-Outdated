@@ -4,12 +4,25 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import userContext from "./context/userContext";
 import axios from "axios";
+import ProfilePage from "./pages/ProfilePage";
+import ProjectPage from "./pages/ProjectsPage";
+import NewProjectPage from "./pages/NewProjectPage";
 
 function App() {
 	const [userData, setUserData] = useState({
 		token: undefined,
 		user: undefined,
 	});
+
+	const [isLoggedIn, setIsLoggedIn] = useState();
+
+	useEffect(() => {
+		if (userData.user) {
+			setIsLoggedIn(true);
+		} else {
+			setIsLoggedIn(false);
+		}
+	}, [userData]);
 
 	useEffect(() => {
 		const checkLoggedIn = async () => {
@@ -41,6 +54,19 @@ function App() {
 				<Routes>
 					<Route exact path='/' element={<LandingPage />} />
 					<Route path='/learn' element={<MainApp />} />
+					<Route
+						path={isLoggedIn ? "/profile" : "/"}
+						element={isLoggedIn ? <ProfilePage /> : <LandingPage />}
+					/>
+					<Route
+						path={isLoggedIn ? "/projects" : "/"}
+						element={isLoggedIn ? <ProjectPage /> : <LandingPage />}
+					/>
+					<Route
+						path={isLoggedIn ? "/newproject" : "/"}
+						element={isLoggedIn ? <NewProjectPage /> : <LandingPage />}
+					/>
+
 					<Route path='*' element={<Navigate to='/' replace />} />
 				</Routes>
 			</userContext.Provider>
