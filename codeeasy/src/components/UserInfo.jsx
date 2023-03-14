@@ -4,7 +4,7 @@ const UserInfo = () => {
 	const { userData } = useContext(userContext);
 
 	return (
-		<div className='md:h-[calc(100vh-96px)] md:px-36 w-full text-white text-xl px-4 mb-10'>
+		<div className='md:h-[calc(100vh-96px)] md:px-36 w-full dark:text-white text-xl px-4 mb-10'>
 			<h3 className='border-b-2 text-2xl mt-10 font-bold py-4 text-center'>
 				Account Information
 			</h3>

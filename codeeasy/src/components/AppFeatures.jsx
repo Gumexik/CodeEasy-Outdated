@@ -42,7 +42,7 @@ const AppFeatures = ({ lesson }) => {
 									? "Welcome to CodeEasy! Start by chosing option from the side menu"
 									: lesson.description
 							}
-							className='dark:bg-gray-900 bg-gray-300 rounded p-4 text-lg w-full h-48 resize-none'
+							className='dark:bg-gray-900 bg-gray-300 rounded p-4 text-lg w-full h-48 resize-none focus:outline-none'
 						></textarea>
 					</div>
 				</div>
