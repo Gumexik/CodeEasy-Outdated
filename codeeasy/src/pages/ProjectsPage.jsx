@@ -2,8 +2,31 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
 import { Link } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import userContext from "../context/userContext";
+import axios from "axios";
 
 function ProjectPage() {
+	const { userData } = useContext(userContext);
+	const [projects, setProjects] = useState([]);
+
+	useEffect(() => {
+		const token = userData.token;
+		try {
+			const getUserProjects = async () => {
+				const data = await axios.get("http://localhost:5000/user/projects", {
+					headers: {
+						"x-auth-token": token,
+					},
+				});
+				setProjects(data.data);
+			};
+			getUserProjects();
+		} catch (err) {
+			return err.response.data.message;
+		}
+	}, [userData.token]);
+
 	return (
 		<>
 			<Navigation />
@@ -16,12 +39,10 @@ function ProjectPage() {
 						</button>
 					</Link>
 				</div>
-				<div className='flex gap-12 flex-wrap mb-12 justify-center md:justify-between overflow-hidden'>
-					<ProjectCard />
-					<ProjectCard />
-					<ProjectCard />
-					<ProjectCard />
-					<ProjectCard />
+				<div className='flex gap-12 flex-wrap mb-12 justify-center overflow-hidden'>
+					{projects.map((project, id) => (
+						<ProjectCard key={id} name={project.name} />
+					))}
 				</div>
 			</div>
 			<Footer />

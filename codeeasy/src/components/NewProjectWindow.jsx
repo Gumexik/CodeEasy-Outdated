@@ -1,17 +1,42 @@
 import React, { useState } from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import userContext from "../context/userContext";
+import axios from "axios";
+import ErrorNotice from "./ErrorNotice";
+import SuccessNotice from "./SuccessNotice";
 
 const NewProjectWindow = () => {
 	const [js, setJs] = useState("");
 	const [css, setCss] = useState("");
-	const [html, setHtml] = useState(`<h1>OUTPUT HERE</h1>`);
+	const [html, setHtml] = useState("<h1>OUTPUT HERE</h1>");
 	const [clickedBtn, setClickedBtn] = useState("html");
 	const [projectName, setProjectName] = useState("");
+	const [error, setError] = useState("");
+	const [successMsg] = useState("Project saved.");
+	const [errorVisible, setErrorVisible] = useState(false);
+	const [successVisible, setSuccessVisible] = useState(false);
 	const { userData } = useContext(userContext);
 
-	const handleProjectSave = () => {
-		return;
+	const handleProjectSave = async () => {
+		try {
+			const token = userData.token;
+			const newProject = { projectName, html, css, js };
+			const newProjectResponse = await axios.post(
+				"http://localhost:5000/user/newProject",
+				newProject,
+				{
+					headers: {
+						"x-auth-token": token,
+					},
+				}
+			);
+			setSuccessVisible(true);
+			newProjectResponse();
+		} catch (err) {
+			err.response.data.message && setError(err.response.data.message);
+			setErrorVisible(true);
+			console.log(err.response.data.message);
+		}
 	};
 
 	const srcDoc = `
@@ -36,9 +61,41 @@ const NewProjectWindow = () => {
 </html>
 
 `;
+	useEffect(() => {
+		let errorMessageTimeout = setTimeout(() => {
+			setErrorVisible(false);
+		}, 3000);
+
+		return () => {
+			clearTimeout(errorMessageTimeout);
+		};
+	}, [errorVisible]);
+
+	useEffect(() => {
+		let successMessageTimeout = setTimeout(() => {
+			setSuccessVisible(false);
+		}, 3000);
+
+		return () => {
+			clearTimeout(successMessageTimeout);
+		};
+	}, [successVisible]);
 
 	return (
 		<div>
+			<div>
+				{errorVisible && (
+					<ErrorNotice message={error} clearError={() => setError(error)} />
+				)}
+			</div>
+			<div>
+				{successVisible && (
+					<SuccessNotice
+						message={successMsg}
+						clearError={() => setError(error)}
+					/>
+				)}
+			</div>
 			<div className='flex md:justify-between gap-4 md:gap-0 max-w-7xl justify-center mx-auto items-center'>
 				<div className='flex items-center justify-center my-6'>
 					<label htmlFor='project_name' className='text-xl dark:text-white'>

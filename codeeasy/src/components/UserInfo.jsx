@@ -5,7 +5,6 @@ import DeletedMsg from "./DeletedMsg";
 const UserInfo = () => {
 	const { userData } = useContext(userContext);
 	const [successMsg, setsuccessMsg] = useState("");
-
 	const handleDeleteUser = async () => {
 		try {
 			const token = userData.token;

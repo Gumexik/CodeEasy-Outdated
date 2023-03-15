@@ -35,7 +35,7 @@ app.get("/users", auth, getUserInfo);
 app.delete("/deleteUser", auth, deleteUser);
 
 // projects routes
-app.get("/user/newProject", auth, newProject);
+app.post("/user/newProject", auth, newProject);
 app.get("/user/projects", auth, getAllProjects);
 
 // database and server connection
