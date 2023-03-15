@@ -31,9 +31,11 @@ mongoose.set("strictQuery", false);
 app.post("/login", loginUser);
 app.post("/signup", signupUser);
 app.post("/tokenIsValid", validToken);
-app.get("/users", auth, getUserInfo),
-	// projects routes
-	app.get("/user/newProject", auth, newProject);
+app.get("/users", auth, getUserInfo);
+app.delete("/deleteUser", auth, deleteUser);
+
+// projects routes
+app.get("/user/newProject", auth, newProject);
 app.get("/user/projects", auth, getAllProjects);
 
 // database and server connection

@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import userContext from "../context/userContext";
 
 const NewProjectWindow = () => {
 	const [js, setJs] = useState("");
 	const [css, setCss] = useState("");
 	const [html, setHtml] = useState(`<h1>OUTPUT HERE</h1>`);
 	const [clickedBtn, setClickedBtn] = useState("html");
+	const [projectName, setProjectName] = useState("");
+	const { userData } = useContext(userContext);
+
+	const handleProjectSave = () => {
+		return;
+	};
 
 	const srcDoc = `
 <!DOCTYPE html>
@@ -37,6 +45,9 @@ const NewProjectWindow = () => {
 						Project name:
 					</label>
 					<input
+						onChange={(e) => {
+							setProjectName(e.target.value);
+						}}
 						id='project_name'
 						type='text'
 						required
@@ -45,6 +56,7 @@ const NewProjectWindow = () => {
 				</div>
 
 				<button
+					onClick={handleProjectSave}
 					className='w-24 px-4 h-12 text-black bg-[#fde904] rounded-md hover:bg-amber-300
 				focus:outline-none focus:bg-amber-400'
 				>
@@ -56,10 +68,15 @@ const NewProjectWindow = () => {
 					<div>
 						<div className='w-full flex justify-between gap-2 mb-2 '>
 							<button
+								type='checkbox'
 								onClick={(e) => {
 									setClickedBtn("html");
 								}}
-								className='p-2 bg-gray-300 rounded w-full'
+								className={`p-2  rounded w-full  ${
+									clickedBtn === "html"
+										? "bg-gray-700 text-white"
+										: "bg-gray-300"
+								}`}
 							>
 								HTML
 							</button>
@@ -67,7 +84,11 @@ const NewProjectWindow = () => {
 								onClick={(e) => {
 									setClickedBtn("css");
 								}}
-								className='px-4 py-2 w-full bg-gray-300 rounded'
+								className={`p-2  rounded w-full  ${
+									clickedBtn === "css"
+										? "bg-gray-700 text-white"
+										: "bg-gray-300"
+								}`}
 							>
 								CSS
 							</button>
@@ -75,19 +96,38 @@ const NewProjectWindow = () => {
 								onClick={(e) => {
 									setClickedBtn("js");
 								}}
-								className='px-4 py-2 w-full bg-gray-300 rounded '
+								className={`p-2  rounded w-full  ${
+									clickedBtn === "js" ? "bg-gray-700 text-white" : "bg-gray-300"
+								}`}
 							>
 								JavaScript
 							</button>
 						</div>
 						<textarea
 							onChange={(e) => {
-								setJs(e.target.value);
+								if (clickedBtn === "html") {
+									setHtml(e.target.value);
+								}
+								if (clickedBtn === "css") {
+									setCss(e.target.value);
+								}
+								if (clickedBtn === "js") {
+									setJs(e.target.value);
+								}
 							}}
 							className='text-lg overflow-y-scroll dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200 rounded p-4 w-full resize-none focus:outline-none md:h-[664px]'
-							placeholder='Enter code here'
+							placeholder={`${
+								clickedBtn === "html"
+									? "Enter HTML here (You are within the body of the document)"
+									: clickedBtn === "js"
+									? "Enter JavaScript here."
+									: "Enter CSS here"
+							}`}
 							autoComplete='off'
 							spellCheck='false'
+							value={`${
+								clickedBtn === "html" ? html : clickedBtn === "js" ? js : css
+							}`}
 						/>
 					</div>
 				</div>
