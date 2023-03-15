@@ -39,8 +39,8 @@ const NewProjectWindow = () => {
 
 	return (
 		<div>
-			<div className='flex justify-between max-w-7xl mx-auto items-center'>
-				<div className='flex items-center justify-center my-6 gap-4'>
+			<div className='flex md:justify-between gap-4 md:gap-0 max-w-7xl justify-center mx-auto items-center'>
+				<div className='flex items-center justify-center my-6'>
 					<label htmlFor='project_name' className='text-xl dark:text-white'>
 						Project name:
 					</label>
