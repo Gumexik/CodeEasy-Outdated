@@ -23,35 +23,24 @@ function App() {
 			localStorage.setItem("auth-token", "");
 			token = "";
 		}
-		try {
-			const tokenResponse = await axios.post(
-				"http://localhost:5000/tokenIsValid",
-				null,
-				{ headers: { "x-auth-token": token } }
-			);
-			if (tokenResponse.data) {
-				const userRes = await axios.get("http://localhost:5000/users/", {
-					headers: { "x-auth-token": token },
-				});
-				setUserData({
-					token,
-					user: userRes.data,
-				});
-			}
-			setIsLoggedIn(true);
-		} catch (error) {
-			console.log("You are not logged in");
+		const tokenResponse = await axios.post(
+			"http://localhost:5000/tokenIsValid",
+			null,
+			{ headers: { "x-auth-token": token } }
+		);
+		if (tokenResponse.data) {
+			const userRes = await axios.get("http://localhost:5000/users/", {
+				headers: { "x-auth-token": token },
+			});
+			setUserData({
+				token,
+				user: userRes.data,
+			});
 		}
+		setIsLoggedIn(true);
 	};
 	useEffect(() => {
 		checkLoggedIn();
-	}, []);
-	useEffect(() => {
-		if (localStorage.getItem("auth-token") === undefined) {
-			setIsLoggedIn(false);
-		} else {
-			setIsLoggedIn(true);
-		}
 	}, [isLoggedIn]);
 
 	return (

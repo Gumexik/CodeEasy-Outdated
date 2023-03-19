@@ -80,8 +80,16 @@ const getSingleProject = async (req, res) => {
 // delete project
 
 const deleteProject = async (req, res) => {
-	const response = await fetch;
-	const data = await response.json();
+	try {
+		const project = await Project.findOneAndRemove({
+			_id: ObjectId(req.params.id),
+		});
+		res.status(200).json("Project Deleted");
+	} catch (err) {
+		res.status(500).json({
+			error: err.message && "There was a problem deleting your project.",
+		});
+	}
 };
 
 module.exports = {

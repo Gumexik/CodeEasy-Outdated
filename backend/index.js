@@ -16,6 +16,7 @@ const {
 	newProject,
 	getSingleProject,
 	updateProject,
+	deleteProject,
 } = require("./controllers/projectController");
 
 const auth = require("./middleware/auth");
@@ -41,6 +42,7 @@ app.post("/user/newProject", auth, newProject);
 app.get("/user/projects", auth, getAllProjects);
 app.get("/user/project/:id", auth, getSingleProject);
 app.put("/user/project/:id", auth, updateProject);
+app.delete("/user/project/:id", auth, deleteProject);
 
 // database and server connection
 

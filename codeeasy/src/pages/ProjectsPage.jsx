@@ -46,10 +46,11 @@ function ProjectPage() {
 					</button>
 				</div>
 				<div className='flex gap-8 flex-wrap mb-12 justify-center overflow-hidden'>
-					{!projects && (
-						<p>
-							You don't have any projects yet, create one by clicking on "Create
-							New" button
+					{projects.length < 1 && (
+						<p className='text-2xl py-20 text-center '>
+							You don't have any projects.
+							<br />
+							<br /> Create one by clicking on "Create New" button.
 						</p>
 					)}
 
