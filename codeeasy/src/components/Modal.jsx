@@ -12,7 +12,7 @@ const Modal = ({ setShowModal }) => {
 					setShowModal(false);
 				}
 			}}
-			className='z-50 absolute flex justify-center items-center h-screen w-screen top-0 left-0 bg-gray-900 bg-opacity-80 overflow-hidden'
+			className=' flex w-full justify-center bg-gray-900 overflow-hidden'
 		>
 			{!register ? (
 				<Login setShowModal={setShowModal} setRegister={setRegister} />

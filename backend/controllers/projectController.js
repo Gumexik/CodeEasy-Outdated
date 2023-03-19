@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const { ObjectId } = require("mongodb");
 
 //  new project
 
@@ -50,14 +51,31 @@ const getAllProjects = async (req, res) => {
 // update project
 
 const updateProject = async (req, res) => {
-	const response = await fetch;
-	const data = await response.json();
+	try {
+		const { js, html, css } = req.body;
+		const project = await Project.findOneAndUpdate(
+			{ _id: ObjectId(req.params.id) },
+			{ js: js, html: html, css: css }
+		);
+		res.status(200).json(project);
+		console.log("Project Updated");
+	} catch (err) {
+		res
+			.status(500)
+			.json({ error: err.message && "There is no such a project." });
+	}
 };
 // get single project
 
 const getSingleProject = async (req, res) => {
-	const response = await fetch;
-	const data = await response.json();
+	try {
+		const project = await Project.findOne({ _id: ObjectId(req.params.id) });
+		res.status(200).json(project);
+	} catch (err) {
+		res
+			.status(500)
+			.json({ error: err.message && "There is no such a project." });
+	}
 };
 // delete project
 

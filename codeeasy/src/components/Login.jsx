@@ -3,14 +3,13 @@ import axios from "axios";
 import userContext from "../context/userContext";
 import ErrorNotice from "./ErrorNotice";
 
-export default function Login({ setShowModal, setRegister }) {
+export default function Login({ setRegister, setShowModal }) {
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 	const [error, setError] = useState();
 	const { setUserData } = useContext(userContext);
 
-	const handleLoginSubmit = async (e) => {
-		e.preventDefault();
+	const handleLoginSubmit = async () => {
 		try {
 			const loginUser = { email, password };
 			const loginResponse = await axios.post(
@@ -22,22 +21,29 @@ export default function Login({ setShowModal, setRegister }) {
 				user: loginResponse.data.user,
 			});
 			localStorage.setItem("auth-token", loginResponse.data.token);
-
-			window.location.reload(false);
+			setShowModal(false);
 		} catch (err) {
 			err.response.data.message && setError(err.response.data.message);
 		}
 	};
 
 	return (
-		<div className='relative flex flex-col justify-center w-3/4 min-h-screen overflow-hidden'>
+		<div className='mt-32 w-3/4 min-h-screen overflow-hidden'>
 			<div className='dark:bg-black dark:border dark:border-gray-400 modal w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
-				<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
-					Sign in
-				</h1>
-				{error && (
-					<ErrorNotice message={error} clearError={() => setError(undefined)} />
-				)}
+				<div className='flex justify-between items-center border-b pb-3'>
+					<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
+						Sign in
+					</h1>
+					<button
+						className='text-3xl dark:text-white'
+						onClick={() => {
+							setShowModal(false);
+						}}
+					>
+						x
+					</button>
+				</div>
+				{error && <ErrorNotice message={error} />}
 				<form onSubmit={handleLoginSubmit} className='mt-6'>
 					<div className='mb-2'>
 						<label

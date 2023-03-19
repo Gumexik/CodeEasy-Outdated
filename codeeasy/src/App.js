@@ -6,7 +6,8 @@ import userContext from "./context/userContext";
 import axios from "axios";
 import ProfilePage from "./pages/ProfilePage";
 import ProjectPage from "./pages/ProjectsPage";
-import NewProjectPage from "./pages/NewProjectPage";
+import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
+import SingleProjectPage from "./pages/SingleProjectPage";
 
 function App() {
 	const [userData, setUserData] = useState({
@@ -14,23 +15,15 @@ function App() {
 		user: undefined,
 	});
 
-	const [isLoggedIn, setIsLoggedIn] = useState();
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	useEffect(() => {
-		if (userData.user) {
-			setIsLoggedIn(true);
-		} else {
-			setIsLoggedIn(false);
+	const checkLoggedIn = async () => {
+		let token = localStorage.getItem("auth-token");
+		if (token === null) {
+			localStorage.setItem("auth-token", "");
+			token = "";
 		}
-	}, [userData]);
-
-	useEffect(() => {
-		const checkLoggedIn = async () => {
-			let token = localStorage.getItem("auth-token");
-			if (token === null) {
-				localStorage.setItem("auth-token", "");
-				token = "";
-			}
+		try {
 			const tokenResponse = await axios.post(
 				"http://localhost:5000/tokenIsValid",
 				null,
@@ -45,26 +38,52 @@ function App() {
 					user: userRes.data,
 				});
 			}
-		};
+			setIsLoggedIn(true);
+		} catch (error) {
+			console.log("You are not logged in");
+		}
+	};
+	useEffect(() => {
 		checkLoggedIn();
 	}, []);
+	useEffect(() => {
+		if (localStorage.getItem("auth-token") === undefined) {
+			setIsLoggedIn(false);
+		} else {
+			setIsLoggedIn(true);
+		}
+	}, [isLoggedIn]);
+
 	return (
 		<div className='font-lato dark:bg-gray-800'>
 			<userContext.Provider value={{ userData, setUserData }}>
 				<Routes>
 					<Route exact path='/' element={<LandingPage />} />
 					<Route path='/learn' element={<MainApp />} />
+
 					<Route
-						path={isLoggedIn ? "/profile" : "/"}
-						element={isLoggedIn ? <ProfilePage /> : <LandingPage />}
+						path='/profile'
+						element={
+							<ProtectedRoute user={isLoggedIn}>
+								<ProfilePage />
+							</ProtectedRoute>
+						}
 					/>
 					<Route
-						path={isLoggedIn ? "/projects" : "/"}
-						element={isLoggedIn ? <ProjectPage /> : <LandingPage />}
+						path='/projects'
+						element={
+							<ProtectedRoute user={isLoggedIn}>
+								<ProjectPage />
+							</ProtectedRoute>
+						}
 					/>
 					<Route
-						path={isLoggedIn ? "/newproject" : "/"}
-						element={isLoggedIn ? <NewProjectPage /> : <LandingPage />}
+						path='/project/*'
+						element={
+							<ProtectedRoute user={isLoggedIn}>
+								<SingleProjectPage />
+							</ProtectedRoute>
+						}
 					/>
 
 					<Route path='*' element={<Navigate to='/' replace />} />

@@ -12,8 +12,7 @@ const Register = ({ setRegister, setShowModal }) => {
 	const [error, setError] = useState();
 	const { setUserData } = useContext(userContext);
 
-	const handleRegisterSubmit = async (e) => {
-		e.preventDefault();
+	const handleRegisterSubmit = async () => {
 		try {
 			const newUser = { email, password, repeatPassword, username };
 			await axios.post("http://localhost:5000/signup", newUser);
@@ -26,18 +25,27 @@ const Register = ({ setRegister, setShowModal }) => {
 				user: loginResponse.data.user,
 			});
 			localStorage.setItem("auth-token", loginResponse.data.token);
-			window.location.reload(false);
 		} catch (err) {
 			err.response.data.message && setError(err.response.data.message);
 		}
 	};
 
 	return (
-		<div className='relative flex flex-col justify-center w-3/4 min-h-screen overflow-hidden'>
+		<div className='mt-32 w-3/4 min-h-screen overflow-hidden'>
 			<div className=' dark:bg-black dark:border dark:border-gray-400 modal w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl'>
-				<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
-					Create account
-				</h1>
+				<div className='flex justify-between items-center border-b pb-3'>
+					<h1 className='text-3xl font-semibold text-center text-black dark:text-white'>
+						Register new account
+					</h1>
+					<button
+						className='text-3xl dark:text-white'
+						onClick={() => {
+							setShowModal(false);
+						}}
+					>
+						x
+					</button>
+				</div>
 				{error && (
 					<ErrorNotice message={error} clearError={() => setError(undefined)} />
 				)}

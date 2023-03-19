@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import { useContext, useEffect } from "react";
-import userContext from "../context/userContext";
-import axios from "axios";
-import ErrorNotice from "./ErrorNotice";
+import { useEffect } from "react";
 import SuccessNotice from "./SuccessNotice";
+import axios from "axios";
 
-const NewProjectWindow = () => {
-	const [js, setJs] = useState("");
-	const [css, setCss] = useState("");
-	const [html, setHtml] = useState("<h1>OUTPUT HERE</h1>");
+const SingleProjectWindow = ({
+	js,
+	setJs,
+	setCss,
+	setHtml,
+	css,
+	html,
+	srcDoc,
+	projectData,
+	userData,
+	project_id,
+}) => {
 	const [clickedBtn, setClickedBtn] = useState("html");
-	const [projectName, setProjectName] = useState("");
-	const [error, setError] = useState("");
 	const [successMsg] = useState("Project saved.");
-	const [errorVisible, setErrorVisible] = useState(false);
 	const [successVisible, setSuccessVisible] = useState(false);
-	const { userData } = useContext(userContext);
 
-	const handleProjectSave = async () => {
+	const handleUpdate = async () => {
 		try {
 			const token = userData.token;
-			const newProject = { projectName, html, css, js };
-			const newProjectResponse = await axios.post(
-				"http://localhost:5000/user/newProject",
-				newProject,
+			const params = { html, js, css };
+			const UpdateProject = await axios.put(
+				`http://localhost:5000/user/project/${project_id}`,
+				params,
 				{
 					headers: {
 						"x-auth-token": token,
@@ -31,45 +33,11 @@ const NewProjectWindow = () => {
 				}
 			);
 			setSuccessVisible(true);
-			newProjectResponse();
+			UpdateProject();
 		} catch (err) {
-			err.response.data.message && setError(err.response.data.message);
-			setErrorVisible(true);
-			console.log(err.response.data.message);
+			return err.response.data.message;
 		}
 	};
-
-	const srcDoc = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Iframe</title>
-    <style>
-    ${css}
-    </style>
-</head>
-<body>
-
-    ${html}
-    <script>
-    ${js}
-    </script>
-</body>
-</html>
-
-`;
-	useEffect(() => {
-		let errorMessageTimeout = setTimeout(() => {
-			setErrorVisible(false);
-		}, 3000);
-
-		return () => {
-			clearTimeout(errorMessageTimeout);
-		};
-	}, [errorVisible]);
 
 	useEffect(() => {
 		let successMessageTimeout = setTimeout(() => {
@@ -82,38 +50,18 @@ const NewProjectWindow = () => {
 	}, [successVisible]);
 
 	return (
-		<div>
-			<div>
-				{errorVisible && (
-					<ErrorNotice message={error} clearError={() => setError(error)} />
-				)}
+		<div className='relative'>
+			<div className='w-48 absolute left-1/2 transform -translate-x-1/2 '>
+				{successVisible && <SuccessNotice message={successMsg} />}
 			</div>
-			<div>
-				{successVisible && (
-					<SuccessNotice
-						message={successMsg}
-						clearError={() => setError(error)}
-					/>
-				)}
-			</div>
-			<div className='flex md:justify-between gap-4 md:gap-0 max-w-7xl justify-center mx-auto items-center'>
-				<div className='flex items-center justify-center my-6'>
-					<label htmlFor='project_name' className='text-xl dark:text-white'>
-						Project name:
-					</label>
-					<input
-						onChange={(e) => {
-							setProjectName(e.target.value);
-						}}
-						id='project_name'
-						type='text'
-						required
-						className='rounded-md p-2 w-64'
-					/>
-				</div>
+			<div className='flex md:justify-between gap-4 md:gap-0 max-w-7xl py-4 justify-center mx-auto items-center'>
+				<p className='text-xl dark:text-white bg-gray-600 rounded-md p-2'>
+					Project name:
+					<b className='text-gray-300'> {projectData.name}</b>
+				</p>
 
 				<button
-					onClick={handleProjectSave}
+					onClick={handleUpdate}
 					className='w-24 px-4 h-12 text-black bg-[#fde904] rounded-md hover:bg-amber-300
 				focus:outline-none focus:bg-amber-400'
 				>
@@ -121,12 +69,12 @@ const NewProjectWindow = () => {
 				</button>
 			</div>
 			<div className='md:flex md:flex-row w-full h-full md:h-[calc(100vh-184px)]'>
-				<div className='inline-block md:w-1/2 w-full p-4 md:flex justify-between flex-col gap-5'>
-					<div>
+				<div className='inline-block md:w-1/2 h-full w-full p-4 gap-5 md:gap-0'>
+					<div className='h-full flex flex-col'>
 						<div className='w-full flex justify-between gap-2 mb-2 '>
 							<button
 								type='checkbox'
-								onClick={(e) => {
+								onClick={() => {
 									setClickedBtn("html");
 								}}
 								className={`p-2  rounded w-full  ${
@@ -138,7 +86,7 @@ const NewProjectWindow = () => {
 								HTML
 							</button>
 							<button
-								onClick={(e) => {
+								onClick={() => {
 									setClickedBtn("css");
 								}}
 								className={`p-2  rounded w-full  ${
@@ -150,7 +98,7 @@ const NewProjectWindow = () => {
 								CSS
 							</button>
 							<button
-								onClick={(e) => {
+								onClick={() => {
 									setClickedBtn("js");
 								}}
 								className={`p-2  rounded w-full  ${
@@ -172,7 +120,7 @@ const NewProjectWindow = () => {
 									setJs(e.target.value);
 								}
 							}}
-							className='text-lg overflow-y-scroll dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200 rounded p-4 w-full resize-none focus:outline-none md:h-[664px]'
+							className='text-md overflow-y-scroll dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200 rounded p-4 w-full resize-none focus:outline-none md:h-full'
 							placeholder={`${
 								clickedBtn === "html"
 									? "Enter HTML here (You are within the body of the document)"
@@ -201,4 +149,4 @@ const NewProjectWindow = () => {
 	);
 };
 
-export default NewProjectWindow;
+export default SingleProjectWindow;

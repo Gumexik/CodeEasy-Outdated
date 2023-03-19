@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import LearnBtn from "./LearnBtn";
 
 const Hero = () => {
 	return (
-		<section className='px-4 py-24 mx-auto max-w-7xl h-[calc(100vh-96px)]'>
+		<section className='px-4 py-24 mx-auto max-w-7xl h-[calc(100vh-96px)] static'>
 			<div className='w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center'>
 				<h1 className='mb-6 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight text-center dark:text-white'>
 					We are making{" "}
@@ -24,19 +24,11 @@ const Hero = () => {
 					code. This allows them to apply what they have learned and see the
 					results in real-time.{" "}
 				</p>
-				<div className='mb-4 md:my-12 flex justify-center md:block'>
-					<Link
-						to='/learn'
-						className='bg-[#fde904] border-2 border-amber-400 shadow text-center rounded py-[11px] px-[24px] relative group overflow-hidden'
-					>
-						<div className='absolute inset-0 w-2 bg-amber-400 transition-all duration-[250ms] ease-out group-hover:w-full'></div>
-						<span className='relative group-hover:text-white'>
-							Start Learning
-						</span>
-					</Link>
+
+				<div className='mb-4 md:my-12 flex justify-center '>
+					<LearnBtn />
 				</div>
 			</div>
-			<div className='w-full mx-auto mt-20 text-center md:w-10/12'></div>
 		</section>
 	);
 };

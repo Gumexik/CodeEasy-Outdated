@@ -7,6 +7,7 @@ const NavLinks = ({ setShowModal }) => {
 
 	const logOut = () => {
 		localStorage.setItem("auth-token", "undefined");
+		localStorage.setItem("loggedIn", false);
 		window.location.reload(false);
 	};
 

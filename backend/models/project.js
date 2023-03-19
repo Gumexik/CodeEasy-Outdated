@@ -8,12 +8,15 @@ const projectSchema = mongoose.Schema(
 		},
 		html: {
 			type: String,
+			default: "",
 		},
 		css: {
 			type: String,
+			default: "",
 		},
 		js: {
 			type: String,
+			default: "",
 		},
 		user_id: {
 			type: String,

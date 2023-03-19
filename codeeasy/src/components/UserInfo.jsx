@@ -1,13 +1,14 @@
 import userContext from "../context/userContext";
 import { useContext, useState } from "react";
 import axios from "axios";
-import DeletedMsg from "./DeletedMsg";
+import ErrorNotice from "./ErrorNotice";
 const UserInfo = () => {
 	const { userData } = useContext(userContext);
 	const [successMsg, setsuccessMsg] = useState("");
+
 	const handleDeleteUser = async () => {
+		const token = userData.token;
 		try {
-			const token = userData.token;
 			const deleteResponse = await axios.delete(
 				"http://localhost:5000/deleteUser",
 				{
@@ -27,9 +28,10 @@ const UserInfo = () => {
 			return err.response.data.message;
 		}
 	};
+
 	return (
-		<div className='md:h-[calc(100vh-96px)] md:px-36 w-full dark:text-white text-xl px-4 mb-10'>
-			{successMsg && <DeletedMsg message={successMsg} />}
+		<div className='md:h-[calc(100vh-96px)] md:max-w-7xl mx-auto w-full dark:text-white text-xl px-4 md:px-0 md:mb-0 mb-10'>
+			{successMsg && <ErrorNotice message={successMsg} />}
 			<h3 className='border-b-2 text-2xl mt-10 font-bold py-4 text-center'>
 				Account Information
 			</h3>
@@ -48,7 +50,7 @@ const UserInfo = () => {
 				onClick={() => {
 					handleDeleteUser();
 				}}
-				className='py-2 px-4 bg-red-600 text-black rounded mt-24'
+				className='py-2 px-4 bg-red-600 text-black rounded mt-24 border border-black dark:border-red-900 hover:bg-red-700'
 			>
 				Delete Account
 			</button>
