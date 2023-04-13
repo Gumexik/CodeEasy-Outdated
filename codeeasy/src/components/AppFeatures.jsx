@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CodeEditor from "@uiw/react-textarea-code-editor";
 
 const AppFeatures = ({ lesson }) => {
 	const [js, setJs] = useState("");
@@ -49,7 +50,22 @@ const AppFeatures = ({ lesson }) => {
 					</div>
 				</div>
 				<div className='h-full'>
-					<textarea
+					<CodeEditor
+						value={lesson.code}
+						language='js'
+						placeholder='Please enter JS code.'
+						onChange={(e) => setJs(e.target.value)}
+						data-color-mode='dark'
+						className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
+
+						// style={{
+						// 	fontSize: 12,
+						// 	backgroundColor: "#f5f5f5",
+						// 	fontFamily:
+						// 		"ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+						// }}
+					/>
+					{/* <textarea
 						onChange={(e) => {
 							setJs(e.target.value);
 						}}
@@ -58,7 +74,7 @@ const AppFeatures = ({ lesson }) => {
 						autoComplete='off'
 						spellCheck='false'
 						defaultValue={lesson.code}
-					/>
+					/> */}
 				</div>
 			</div>
 			<div className='md:w-1/2 p-4 dark:text-white flex justify-between flex-col'>
