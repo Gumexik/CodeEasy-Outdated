@@ -120,7 +120,7 @@ const getUserInfo = async (req, res) => {
 	const user = await User.findById(req.user);
 	res.json({
 		displayName: user.username,
-		id: user._id,
+		id: user.id,
 		email: user.email,
 	});
 };

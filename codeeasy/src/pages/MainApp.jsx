@@ -2,7 +2,6 @@ import Navigation from "../components/Navigation";
 import { useState } from "react";
 import SideNav from "../components/SideNav";
 import AppFeatures from "../components/AppFeatures";
-import Footer from "../components/Footer";
 
 import lessons from "../Lessons.json";
 
@@ -12,11 +11,10 @@ function MainApp() {
 	return (
 		<>
 			<Navigation />
-			<div className='flex flex-col md:flex-row'>
+			<div className='flex flex-col md:flex-row overflow-y-hidden'>
 				<SideNav setLesson={setLesson} />
 				<AppFeatures lesson={lesson} />
 			</div>
-			<Footer />
 		</>
 	);
 }

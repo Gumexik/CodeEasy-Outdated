@@ -2,7 +2,7 @@ import LearnBtn from "./LearnBtn";
 
 const Hero = () => {
 	return (
-		<section className='px-4 py-24 mx-auto max-w-7xl h-[calc(100vh-96px)] static'>
+		<section className='px-4 pt-16 mx-auto max-w-7xl min-h-[calc(100vh-96px)] static'>
 			<div className='w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center'>
 				<h1 className='mb-6 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight text-center dark:text-white'>
 					We are making{" "}

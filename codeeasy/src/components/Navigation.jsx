@@ -37,7 +37,7 @@ const Navigation = () => {
 	}, [showModal]);
 
 	return (
-		<header className='z-30 w-full  px-10 py-4 bg-[#f3f4f6] dark:bg-gray-900 drop-shadow-md dark:drop-shadow-[0_4px_3px_rgba(255,255,255,0.05)]'>
+		<header className='z-30 w-full  px-10 py-4 bg-[#f3f4f6] dark:bg-gray-900 '>
 			<nav className='flex lg:flex-row flex-col md:justify-between mx-auto max-w-7xl'>
 				<div className='flex justify-between'>
 					<Link to='/' className='flex items-center '>

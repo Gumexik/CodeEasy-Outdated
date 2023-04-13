@@ -36,6 +36,8 @@ const AppFeatures = ({ lesson }) => {
 				<div className='min-h-48'>
 					<div className='mb-6 md:mb-0 dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black bg-gray-200 rounded p-4 w-full focus:outline-none'>
 						<textarea
+							autoComplete='off'
+							spellCheck='false'
 							readOnly
 							value={
 								!lesson.description
@@ -59,13 +61,16 @@ const AppFeatures = ({ lesson }) => {
 					/>
 				</div>
 			</div>
-			<div className='md:w-1/2 p-4 dark:text-white block'>
+			<div className='md:w-1/2 p-4 dark:text-white flex justify-between flex-col'>
 				<iframe
 					sandbox='allow-scripts'
 					srcDoc={srcDoc}
 					title='JavaScript Iframe'
-					className='md:h-full h-80 w-full rounded bg-[#f3f4f6] border border-black dark:border dark:bg-gray-600 dark:text-white dark:border-gray-500'
+					className='md:h-3/4 h-80 w-full rounded-t bg-[#f3f4f6] border border-black dark:border dark:bg-gray-600 dark:text-white dark:border-gray-500'
 				></iframe>
+				<div className='md:h-1/4 w-full rounded-b border dark:border-gray-500 border-black bg-[#f3f4f6] dark:bg-gray-900 p-2'>
+					<p>&gt; console</p>
+				</div>
 			</div>
 		</div>
 	);
