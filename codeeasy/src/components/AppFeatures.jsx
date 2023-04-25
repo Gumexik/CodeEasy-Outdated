@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
-
+import userContext from "../context/userContext";
 const AppFeatures = ({ lesson }) => {
+	const { theme } = useContext(userContext);
 	const [js, setJs] = useState("");
 	const [srcDoc, setSrcDoc] = useState(` `);
 
@@ -55,26 +56,9 @@ const AppFeatures = ({ lesson }) => {
 						language='js'
 						placeholder='Please enter JS code.'
 						onChange={(e) => setJs(e.target.value)}
-						data-color-mode='dark'
+						data-color-mode={theme === "dark" ? "dark" : "light"}
 						className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
-
-						// style={{
-						// 	fontSize: 12,
-						// 	backgroundColor: "#f5f5f5",
-						// 	fontFamily:
-						// 		"ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
-						// }}
 					/>
-					{/* <textarea
-						onChange={(e) => {
-							setJs(e.target.value);
-						}}
-						className='text-lg dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200  rounded p-4  h-full w-full resize-none focus:outline-none'
-						placeholder='Enter code here'
-						autoComplete='off'
-						spellCheck='false'
-						defaultValue={lesson.code}
-					/> */}
 				</div>
 			</div>
 			<div className='md:w-1/2 p-4 dark:text-white flex justify-between flex-col'>

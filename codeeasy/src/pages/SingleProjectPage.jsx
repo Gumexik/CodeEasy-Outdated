@@ -1,4 +1,3 @@
-import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import SingleProjectWindow from "../components/SingleProjectWindow";
 import { useState, useEffect, useContext } from "react";
@@ -71,7 +70,6 @@ function SingleProjectPage() {
 
 	return (
 		<>
-			<Navigation />
 			{loaded ? (
 				<SingleProjectWindow
 					projectData={projectData}

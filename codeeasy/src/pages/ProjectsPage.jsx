@@ -1,4 +1,3 @@
-import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import ProjectCard from "../components/ProjectCard";
 import { useContext, useState, useEffect } from "react";
@@ -29,7 +28,6 @@ function ProjectPage() {
 	}, [userData.token]);
 	return (
 		<>
-			<Navigation />
 			{showModal && (
 				<NewProjectModal setShowModal={setShowModal} showModal={showModal} />
 			)}

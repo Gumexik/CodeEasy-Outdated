@@ -2,16 +2,16 @@ import logo from "../assets/logo.png";
 import theme_dark from "../assets/theme.png";
 import theme_light from "../assets/theme_white.png";
 import Modal from "./Modal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LearnBtn from "./LearnBtn";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
+import userContext from "../context/userContext";
 
-const Navigation = () => {
-	const localTheme = localStorage.getItem("Mode");
+const Navigation = ({ setTheme }) => {
+	const { theme } = useContext(userContext);
 
 	const [showModal, setShowModal] = useState(false);
-	const [theme, setTheme] = useState(localTheme);
 
 	useEffect(() => {
 		localStorage.setItem("Mode", theme);

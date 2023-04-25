@@ -9,8 +9,11 @@ import ProjectPage from "./pages/ProjectsPage";
 import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
 import SingleProjectPage from "./pages/SingleProjectPage";
 import Loader from "./components/Loader";
+import Navigation from "./components/Navigation";
 
 function App() {
+	const localTheme = localStorage.getItem("Mode");
+	const [theme, setTheme] = useState(localTheme);
 	const [userData, setUserData] = useState({
 		token: undefined,
 		user: undefined,
@@ -53,7 +56,10 @@ function App() {
 
 	return (
 		<div className='font-lato dark:bg-gray-800'>
-			<userContext.Provider value={{ userData, setUserData, setIsLoggedIn }}>
+			<userContext.Provider
+				value={{ userData, setUserData, setIsLoggedIn, theme }}
+			>
+				<Navigation setTheme={setTheme} />
 				<Loader isLoaded={isLoggedIn !== null}>
 					<Routes>
 						<Route exact path='/' element={<LandingPage />} />

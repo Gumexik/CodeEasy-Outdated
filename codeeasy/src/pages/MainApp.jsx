@@ -9,13 +9,10 @@ function MainApp() {
 	const [lesson, setLesson] = useState(lessons.lessons[0].description);
 
 	return (
-		<>
-			<Navigation />
-			<div className='flex flex-col md:flex-row overflow-y-hidden'>
-				<SideNav setLesson={setLesson} />
-				<AppFeatures lesson={lesson} />
-			</div>
-		</>
+		<div className='flex flex-col md:flex-row overflow-y-hidden'>
+			<SideNav setLesson={setLesson} />
+			<AppFeatures lesson={lesson} />
+		</div>
 	);
 }
 
