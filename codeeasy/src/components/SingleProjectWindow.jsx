@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import SuccessNotice from "./SuccessNotice";
 import axios from "axios";
+import CodeEditor from "@uiw/react-textarea-code-editor";
+import userContext from "../context/userContext";
 
 const SingleProjectWindow = ({
 	js,
@@ -15,6 +17,7 @@ const SingleProjectWindow = ({
 	userData,
 	project_id,
 }) => {
+	const { theme } = useContext(userContext);
 	const [clickedBtn, setClickedBtn] = useState("html");
 	const [successMsg] = useState("Project saved.");
 	const [successVisible, setSuccessVisible] = useState(false);
@@ -55,9 +58,9 @@ const SingleProjectWindow = ({
 				{successVisible && <SuccessNotice message={successMsg} />}
 			</div>
 			<div className='flex md:justify-between gap-4 md:gap-0 max-w-7xl py-4 justify-center mx-auto items-center'>
-				<p className='text-xl dark:text-white bg-gray-600 rounded-md p-2'>
+				<p className='dark:text-white text-xl bg-[#fde904] dark:bg-gray-600 rounded-md p-2'>
 					Project name:
-					<b className='text-gray-300'> {projectData.name}</b>
+					<b className='dark:text-gray-300'> {projectData.name}</b>
 				</p>
 
 				<button
@@ -108,7 +111,24 @@ const SingleProjectWindow = ({
 								JavaScript
 							</button>
 						</div>
-						<textarea
+						<CodeEditor
+							value={`${
+								clickedBtn === "html" ? html : clickedBtn === "js" ? js : css
+							}`}
+							language={`${
+								clickedBtn === "html"
+									? "html"
+									: clickedBtn === "js"
+									? "javascript"
+									: "css"
+							}`}
+							placeholder={`${
+								clickedBtn === "html"
+									? "Enter HTML here (You are within the body of the document)"
+									: clickedBtn === "js"
+									? "Enter JavaScript here."
+									: "Enter CSS here"
+							}`}
 							onChange={(e) => {
 								if (clickedBtn === "html") {
 									setHtml(e.target.value);
@@ -120,19 +140,8 @@ const SingleProjectWindow = ({
 									setJs(e.target.value);
 								}
 							}}
-							className='text-md overflow-y-scroll dark:bg-gray-600 dark:text-white dark:border dark:border-gray-500 border border-black  bg-gray-200 rounded p-4 w-full resize-none focus:outline-none md:h-full'
-							placeholder={`${
-								clickedBtn === "html"
-									? "Enter HTML here (You are within the body of the document)"
-									: clickedBtn === "js"
-									? "Enter JavaScript here."
-									: "Enter CSS here"
-							}`}
-							autoComplete='off'
-							spellCheck='false'
-							value={`${
-								clickedBtn === "html" ? html : clickedBtn === "js" ? js : css
-							}`}
+							data-color-mode={theme === "dark" ? "dark" : "light"}
+							className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
 						/>
 					</div>
 				</div>

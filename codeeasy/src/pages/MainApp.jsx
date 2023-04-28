@@ -1,4 +1,3 @@
-import Navigation from "../components/Navigation";
 import { useState } from "react";
 import SideNav from "../components/SideNav";
 import AppFeatures from "../components/AppFeatures";

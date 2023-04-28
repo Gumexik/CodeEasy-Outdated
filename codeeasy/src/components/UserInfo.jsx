@@ -5,9 +5,9 @@ import ErrorNotice from "./ErrorNotice";
 const UserInfo = () => {
 	const { userData } = useContext(userContext);
 	const [successMsg, setsuccessMsg] = useState("");
+	const token = userData.token;
 
 	const handleDeleteUser = async () => {
-		const token = userData.token;
 		try {
 			const deleteResponse = await axios.delete(
 				"http://localhost:5000/deleteUser",
@@ -24,6 +24,17 @@ const UserInfo = () => {
 				window.location.reload(false);
 				deleteResponse();
 			}, 3000);
+		} catch (err) {
+			return err.response.data.message;
+		}
+	};
+
+	const handlePasswordChange = async () => {
+		try {
+			const passwordChange = await axios.put(
+				"http://localhost:5000/updatePassword",
+				{ headers: { "x-auth-token": token } }
+			);
 		} catch (err) {
 			return err.response.data.message;
 		}
@@ -46,14 +57,24 @@ const UserInfo = () => {
 				<p className='font-bold w-32'>Email:</p>
 				<p>{userData.user.email}</p>
 			</div>
-			<button
-				onClick={() => {
-					handleDeleteUser();
-				}}
-				className='py-2 px-4 bg-red-600 text-black rounded mt-24 border border-black dark:border-red-900 hover:bg-red-700'
-			>
-				Delete Account
-			</button>
+			<div className='flex gap-4'>
+				<button
+					onClick={() => {
+						handleDeleteUser();
+					}}
+					className='py-2 px-4 bg-red-600 text-white dark:text-black rounded mt-24 border border-black dark:border-red-900 hover:bg-red-700'
+				>
+					Delete Account
+				</button>
+				<button
+					onClick={() => {
+						handlePasswordChange();
+					}}
+					className='py-2 px-4 bg-blue-600 text-white dark:text-black rounded mt-24 border border-black dark:border-blue-900 hover:bg-blue-700'
+				>
+					Change Password
+				</button>
+			</div>
 		</div>
 	);
 };
