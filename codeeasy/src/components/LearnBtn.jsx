@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const LearnBtn = () => {
@@ -6,7 +5,8 @@ const LearnBtn = () => {
 		window.location.pathname === "/" ||
 		window.location.pathname === "/profile" ||
 		window.location.pathname === "/projects" ||
-		window.location.pathname === "/newproject"
+		window.location.pathname === "/newproject" ||
+		window.location.pathname === "/terms"
 	) {
 		return (
 			<Link

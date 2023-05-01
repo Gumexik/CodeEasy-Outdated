@@ -10,6 +10,7 @@ import ProtectedRoute from "./protectedRoutes/ProtectedRoute";
 import SingleProjectPage from "./pages/SingleProjectPage";
 import Loader from "./components/Loader";
 import Navigation from "./components/Navigation";
+import TermsAndConditions from "./pages/TermsAndConditions";
 
 function App() {
 	const localTheme = localStorage.getItem("Mode");
@@ -64,6 +65,7 @@ function App() {
 					<Routes>
 						<Route exact path='/' element={<LandingPage />} />
 						<Route path='/learn' element={<MainApp />} />
+						<Route path='/terms' element={<TermsAndConditions />} />
 
 						<Route
 							path='/profile'

@@ -3,8 +3,9 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import userContext from "../context/userContext";
 const AppFeatures = ({ lesson }) => {
 	const { theme } = useContext(userContext);
-	const [js, setJs] = useState("");
+	const [code, setCode] = useState("");
 	const [srcDoc, setSrcDoc] = useState(` `);
+	const [logs, setLogs] = useState([]);
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -13,24 +14,37 @@ const AppFeatures = ({ lesson }) => {
 				<!DOCTYPE html>
 				<html>
 				<body>
-				
-				<h2>My First JavaScript</h2>
-				
-				<button type="button"
-				onclick="document.getElementById('demo').innerHTML = Date()">
-				Click me to display Date and Time.</button>
-				
-				<p id="demo"></p>
-				
-				
-                <script>${js}</script>
+				<script>
+				// Save the current console log function in case we need it.
+				const _log = console.log;
+				// Override the console
+				console.log = function(...rest) {
+				  // window.parent is the parent frame that made this window
+				  window.parent.postMessage(
+					{
+					  source: 'iframe',
+					  message: rest,
+					},
+					'*'
+				  );
+				  // Finally applying the console statements to saved instance earlier
+				  _log.apply(console, arguments);
+				};
+				</script>
+				${code}
 				</body>
               </html>
             `
 			);
 		}, 250);
 		return () => clearTimeout(timeOut);
-	}, [js]);
+	}, [code]);
+
+	window.addEventListener("message", function (response) {
+		if (response.data && response.data.source === "iframe") {
+			setLogs([...logs, ...response.data.message]);
+		}
+	});
 
 	return (
 		<div className='md:flex md:flex-row w-full h-full md:h-[calc(100vh-96px)]'>
@@ -53,9 +67,9 @@ const AppFeatures = ({ lesson }) => {
 				<div className='h-full'>
 					<CodeEditor
 						value={lesson.code}
-						language='js'
-						placeholder='Please enter JS code.'
-						onChange={(e) => setJs(e.target.value)}
+						language='html'
+						placeholder='Please enter code here.'
+						onChange={(e) => setCode(e.target.value)}
 						data-color-mode={theme === "dark" ? "dark" : "light"}
 						className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
 					/>
@@ -63,13 +77,20 @@ const AppFeatures = ({ lesson }) => {
 			</div>
 			<div className='md:w-1/2 p-4 dark:text-white flex justify-between flex-col'>
 				<iframe
+					id='myIframe'
 					sandbox='allow-scripts'
 					srcDoc={srcDoc}
-					title='JavaScript Iframe'
+					title='Iframe'
 					className='md:h-3/4 h-80 w-full rounded-t bg-[#f3f4f6] border border-black dark:border dark:bg-gray-600 dark:text-white dark:border-gray-500'
 				></iframe>
-				<div className='md:h-1/4 w-full rounded-b border dark:border-gray-500 border-black bg-[#f3f4f6] dark:bg-gray-900 p-2'>
-					<p>&gt; console</p>
+				<div
+					id='console-container'
+					className='md:h-1/4 w-full overflow-y-scroll rounded-b border dark:border-gray-500 border-black bg-[#f3f4f6] dark:bg-gray-900 p-2'
+				>
+					<p>&gt; Output</p>
+					{logs.map((log, idx) => (
+						<p key={idx}>&gt; {log}</p>
+					))}
 				</div>
 			</div>
 		</div>

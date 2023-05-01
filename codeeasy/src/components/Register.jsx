@@ -140,6 +140,12 @@ const Register = ({ setRegister, setShowModal }) => {
 						Sign In
 					</button>
 				</p>
+				<p className='text-center text-xs dark:text-white text-gray-700 mt-6'>
+					By creating a new account you accept our{" "}
+					<a href='/terms' className='text-[#fde904]'>
+						Terms and Conditions
+					</a>
+				</p>
 			</div>
 		</div>
 	);

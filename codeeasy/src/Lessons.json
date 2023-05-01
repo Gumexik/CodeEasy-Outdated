@@ -3,7 +3,7 @@
 		{
 			"name": "0. Intro",
 			"description": "Why should you learn JavaScript?\nJavascript is one of the main languages for web development.\nIt is the programming language that allows you to build websites and web applications.",
-			"code": "// Like this: \n\nlet x; \nconst y = 10; \n\n document.getElementById(\"test_script\").innerHTML = \"works!\""
+			"code": "<h2>My First JavaScript</h2>\n<button type=\"button\"\nonclick=\"document.getElementById('demo').innerHTML = Date()\">Click me to display Date and Time.</button><p id=\"demo\"></p>"
 		},
 		{
 			"name": "1. Variables",
