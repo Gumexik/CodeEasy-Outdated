@@ -18,6 +18,7 @@ const AppFeatures = ({ lesson }) => {
 				// Save the current console log function in case we need it.
 				const _log = console.log;
 				// Override the console
+				
 				console.log = function(...rest) {
 				  // window.parent is the parent frame that made this window
 				  window.parent.postMessage(
@@ -36,7 +37,6 @@ const AppFeatures = ({ lesson }) => {
               </html>
             `
 			);
-			setLogs([]);
 		}, 250);
 		return () => clearTimeout(timeOut);
 	}, [code]);
