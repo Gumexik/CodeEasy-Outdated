@@ -57,7 +57,7 @@
 		{
 			"name": "7. Operators",
 			"description": "There are different types of JavaScript operators:\nAddition Operator (+)\nSubtraction Operator (-)\nMultiplication Operator (*)\nExponentation Operator (**)\nDivision Operator (/)\nModulus (%)\nIncrement (++)\nDecrement (--)",
-			"code": "<h1>JavaScript Arithmetic</h1>\n<script>\nlet x = 5;\nlet y = 2;\nlet add = x + y;\nlet divide = x / y;\nlet multiply = x * y;\nconsole.log(add, divide, multiply)</script>"
+			"code": "<h1>JavaScript Arithmetic</h1>\n<script>\nlet x = 5;\nlet y = 2;\nlet add = x + y;\nlet divide = x / y;\nlet multiply = x * y;\nconsole.log(add, divide, multiply)\n</script>"
 		}
 	]
 }

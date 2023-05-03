@@ -10,7 +10,7 @@ const Register = ({ setRegister, setShowModal }) => {
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [error, setError] = useState();
-	const { setUserData } = useContext(userContext);
+	const { setUserData, setIsLoggedIn } = useContext(userContext);
 
 	const handleRegisterSubmit = async (e) => {
 		e.preventDefault();
@@ -27,6 +27,7 @@ const Register = ({ setRegister, setShowModal }) => {
 			});
 			localStorage.setItem("auth-token", loginResponse.data.token);
 			setShowModal(false);
+			setIsLoggedIn(true);
 		} catch (err) {
 			err.response.data.message && setError(err.response.data.message);
 		}
