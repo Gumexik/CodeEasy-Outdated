@@ -36,6 +36,7 @@ const AppFeatures = ({ lesson }) => {
               </html>
             `
 			);
+			setLogs([]);
 		}, 250);
 		return () => clearTimeout(timeOut);
 	}, [code]);
@@ -87,7 +88,7 @@ const AppFeatures = ({ lesson }) => {
 					id='console-container'
 					className='md:h-1/4 w-full overflow-y-scroll rounded-b border dark:border-gray-500 border-black bg-[#f3f4f6] dark:bg-gray-900 p-2'
 				>
-					<p>&gt; Output</p>
+					{logs.length <= 0 && <p>&gt; Output</p>}
 					{logs.map((log, idx) => (
 						<p key={idx}>&gt; {log}</p>
 					))}
