@@ -37,15 +37,24 @@ const AppFeatures = ({ lesson }) => {
               </html>
             `
 			);
+			setLogs([]);
 		}, 250);
 		return () => clearTimeout(timeOut);
 	}, [code]);
 
-	window.addEventListener("message", function (response) {
-		if (response.data && response.data.source === "iframe") {
-			setLogs([...logs, ...response.data.message]);
-		}
-	});
+	useEffect(() => {
+		const messageListener = function (response) {
+			if (response.data && response.data.source === "iframe") {
+				setLogs((prevLogs) => [...prevLogs, ...response.data.message]);
+			}
+		};
+
+		window.addEventListener("message", messageListener);
+
+		return () => {
+			window.removeEventListener("message", messageListener);
+		};
+	}, []);
 
 	return (
 		<div className='md:flex md:flex-row w-full h-full md:h-[calc(100vh-96px)]'>
@@ -61,7 +70,7 @@ const AppFeatures = ({ lesson }) => {
 									? "Welcome to CodeEasy! Start by chosing option from the side menu"
 									: lesson.description
 							}
-							className='dark:bg-gray-900 bg-gray-300 rounded p-4 text-lg w-full h-48 resize-none focus:outline-none'
+							className='dark:bg-gray-900 bg-gray-300 rounded p-4  w-full h-48 resize-none focus:outline-none'
 						></textarea>
 					</div>
 				</div>

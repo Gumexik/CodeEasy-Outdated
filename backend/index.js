@@ -9,6 +9,7 @@ const {
 	validToken,
 	deleteUser,
 	getUserInfo,
+	changePassword,
 } = require("./controllers/userController");
 
 const {
@@ -36,6 +37,7 @@ app.post("/signup", signupUser);
 app.post("/tokenIsValid", validToken);
 app.get("/users", auth, getUserInfo);
 app.delete("/deleteUser", auth, deleteUser);
+app.put("/changePassword", auth, changePassword);
 
 // projects routes
 app.post("/user/newProject", auth, newProject);

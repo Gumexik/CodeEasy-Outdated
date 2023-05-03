@@ -101,6 +101,55 @@ const deleteUser = async (req, res) => {
 		res.status(500).json({ error: err.message });
 	}
 };
+
+const changePassword = async (req, res) => {
+	try {
+		const exinstingUser = await User.findById(req.user);
+		const { currentPassword, newPassword, newPassword2 } = req.body;
+
+		// validate
+		if (!currentPassword)
+			return res
+				.status(400)
+				.json({ message: "You need to enter current password." });
+
+		const isMatch = await bcrypt.compare(
+			currentPassword,
+			exinstingUser.password
+		);
+
+		if (!isMatch)
+			return res
+				.status(400)
+				.json({ message: "Current password doesn't match, please try again." });
+
+		if (!newPassword || !newPassword2)
+			return res.status(400).json({ message: "Please provide new password" });
+
+		if (newPassword !== newPassword2)
+			return res.status(400).json({ message: "Passwords doesnt match." });
+
+		if (currentPassword == newPassword)
+			return res
+				.status(400)
+				.json({
+					message: "New password cannot be the same as the current password.",
+				});
+
+		const salt = await bcrypt.genSalt(10);
+
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+		const updatedUser = await User.findByIdAndUpdate(req.user, {
+			password: hashedPassword,
+		});
+		updatedUser.save();
+		res.status(200).json({ message: "Password changed." });
+		console.log("password changed");
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+
 // Check if token is valid
 const validToken = async (req, res) => {
 	try {
@@ -125,4 +174,11 @@ const getUserInfo = async (req, res) => {
 	});
 };
 
-module.exports = { signupUser, loginUser, validToken, deleteUser, getUserInfo };
+module.exports = {
+	signupUser,
+	loginUser,
+	validToken,
+	deleteUser,
+	getUserInfo,
+	changePassword,
+};
