@@ -2,43 +2,62 @@
 	"lessons": [
 		{
 			"name": "0. Intro",
-			"description": "Why should you learn JavaScript?\nJavascript is one of the main languages for web development.\nIt is the programming language that allows you to build websites and web applications.",
-			"code": "<h2>My First JavaScript</h2>\n<button type=\"button\"\nonclick=\"document.getElementById('demo').innerHTML = Date()\">Click me to display Date and Time.</button><p id=\"demo\"></p>"
+			"description": "Why should you learn JavaScript?\nJavascript is one of the main languages for web development.\nIt is the programming language that allows you to build websites and web applications. It can change HTML content, HTML attributes, CSS styles and many more!",
+			"code": "<h2>What Can JavaScript Do?</h2>\n<p id=\"demo\">JavaScript can change HTML content.</p>\n<button type=\"button\" onclick='document.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\"'>Click Me!</button>\n<script>console.log(\"Hello from the console!\")</script>"
 		},
 		{
 			"name": "1. Variables",
 			"description": "Variables are used to store values.\nYou can declare a variable with the let or const keywords.\nThe difference between let and const is that let is block-scoped and can be reassigned, while const is block-scoped and cannot be reassigned.",
-			"code": "// Like this: \n\nlet x; \nconst y = 10; \n\n document.getElementById(\"test_script\").innerHTML = \"works!\""
+			"code": "<h2>JavaScript Variables</h2>\n<p>In this example, x is defined as a variable.\n\nThen, x is assigned the value of 6:</p>\n<p id=\"demo\"></p>\n<script>\nlet x;\nx = 6;\ndocument.getElementById(\"demo\").innerHTML = x;\nconsole.log(x)</script>",
+			"subheading": [
+				{
+					"name": "1.1 Example",
+					"desc": "If you want a general rule: always declare variables with const.\nIf you think the value of the variable can change, use let.\nIn this example, price1, price2, and total, are variables:",
+					"code": "<h1>JavaScript Variables</h1>\n<p>In this example, price1, price2, and total are variables.</p>\n<p id=\"demo\"></p>\n<script>\nconst price1 = 5;\nconst price2 = 6;\nlet total = price1 + price2;\ndocument.getElementById(\"demo\").innerHTML =\n\"The total is: \" + total;\nconsole.log(total)</script>"
+				}
+			]
 		},
 		{
-			"name": "2. Data Types",
-			"description": "JavaScript has several data types, including numbers, strings, booleans, and objects.",
-			"code": "like this: \nlet x; const \n y = 10"
-		},
-		{
-			"name": "3. Numbers",
+			"name": "2. Numbers",
 			"description": "Numbers: Numbers can be integers or floating-point values. You can perform arithmetic operations with numbers, like this: let x = 10; let y = 20; let z = x + y; // z is now 30",
-			"code": "like this: \nlet x; const \n y = 10"
+			"code": "<h2>JavaScript Numbers</h2>\n\n<p>Number can be written with or without decimals.</p>\n<p id=\"demo\"></p>\n<script>\ndocument.getElementById(\"demo\").innerHTML = 10.50;\nlet number = 125\nconsole.log(number)\n</script>"
 		},
 		{
-			"name": "4. Strings",
+			"name": "3. Strings",
 			"description": "Strings are sequences of characters, and can be declared with single or double quotes. You can oncatenate strings with the + operator, like this: let firstName = \"John\"; let lastName = \"Doe\"; let fullName = `${firstName} ${lastName}`; // fullName is now \"John Doe\" Note that the ${} syntax is called template literals, which allows you to include variables within a string without having to use string concatenation.",
-			"code": "like this: \nlet x; const \n y = 10"
+			"code": "<h2>JavaScript Strings</h2>\n\n<p>Strings can be written with double or single quotes.</p>\n<p id=\"demo\"></p>\n<script>\ndocument.getElementById(\"demo\").innerHTML = 'John Doe';\nlet name = \"John\"\nconsole.log(name)\n</script>"
 		},
 		{
-			"name": "5. Boolean",
-			"description": "Booleans represent true or false values. You can use comparison operators to create boolean values, like this: let x = 10; let y = 20; let z = x < y; // z is now true",
-			"code": "like this: \nlet x; const \n y = 10"
+			"name": "4. Objects",
+			"description": "In JavaScript, almost \"everything\" is an object.\n\nBooleans can be objects (if defined with the new keyword)\nNumbers can be objects (if defined with the new keyword)\nStrings can be objects (if defined with the new keyword)\nDates are always objects\nMaths are always objects\nRegular expressions are always objects\nArrays are always objects\nFunctions are always objects\nObjects are always objects\nAll JavaScript values, except primitives, are objects.",
+			"code": "<h2>JavaScript Objects</h2>\n<p>Creating an object:</p>\n<p id=\"demo\"></p>\n<script>\nlet person = {\nfirstName : \"John\",\nlastName  : \"Doe\",\nage     : 50,\neyeColor  : \"blue\"\n};\ndocument.getElementById(\"demo\").innerHTML = person.firstName + \" \" + person.lastName;\nconsole.log(person.firstName)\n</script>"
 		},
 		{
-			"name": "6. Objects",
-			"description": "Objects are collections of key-value pairs. You can create an object like this: let person = { firstName: \"John\", lastName: \"Doe\", age: 30 }; You can access the values in an object using dot notation or bracket notation, like this: console.log(person.firstName); // \"John\" console.log(person[\"lastName\"]); // \"Doe\"",
-			"code": "like this: \nlet x; const \n y = 10"
+			"name": "5. Functions",
+			"description": "A JavaScript function is a block of code designed to perform a particular task.\nA JavaScript function is executed when \"something\" invokes it (calls it).",
+			"code": "<script>\nfunction myFunction(p1, p2) {\nlet sum = p1 * p2\nconsole.log(sum);\n}\nmyFunction(4, 3);\n</script>"
 		},
 		{
-			"name": "7. Functions",
-			"description": "Functions are blocks of code that can be executed when called. You can define a function using the arrow function syntax, like this: const greet = (name) => { console.log(`Hello, ${name}`); } greet(\"John\"); // prints \"Hello, John\" Note that the arrow function syntax is shorter and more concise than the traditional function syntax.",
-			"code": "like this: \nlet x; const \n y = 10"
+			"name": "6. Comments",
+			"description": "JavaScript comments can be used to explain JavaScript code, and to make it more readable.\nJavaScript comments can also be used to prevent execution, when testing alternative code.",
+			"code": "<h1>JavaScript Comments</h1>",
+			"subheading": [
+				{
+					"name": "8.1 Single Line",
+					"desc": "Single line comments start with //.\nAny text between // and the end of the line will be ignored by JavaScript (will not be executed).\nThis example uses a single-line comment before each code line:",
+					"code": "<h1 id=\"myH\"></h1>\n<p id=\"myP\"></p>\n<script>\n// Change heading:\ndocument.getElementById(\"myH\").innerHTML = \"JavaScript Comments\";\n// Change paragraph:\ndocument.getElementById(\"myP\").innerHTML = \"My first paragraph.\";\n</script>"
+				},
+				{
+					"name": "8.2 Multi Line",
+					"desc": "Multi-line comments start with /* and end with */.\nAny text between /* and */ will be ignored by JavaScript.\nThis example uses a multi-line comment (a comment block) to explain the code:",
+					"code": "<h1 id=\"myH\"></h1>\n<p id=\"myP\"></p>\n<script>\n/*\nThe code below will change\nthe heading with id = \"myH\"\nand the paragraph with id = \"myP\"\n*/\ndocument.getElementById(\"myH\").innerHTML = \"JavaScript Comments\";\ndocument.getElementById(\"myP\").innerHTML = \"My first paragraph.\";\n</script>"
+				}
+			]
+		},
+		{
+			"name": "7. Operators",
+			"description": "There are different types of JavaScript operators:\nAddition Operator (+)\nSubtraction Operator (-)\nMultiplication Operator (*)\nExponentation Operator (**)\nDivision Operator (/)\nModulus (%)\nIncrement (++)\nDecrement (--)",
+			"code": "<h1>JavaScript Arithmetic</h1>\n<script>\nlet x = 5;\nlet y = 2;\nlet add = x + y;\nlet divide = x / y;\nlet multiply = x * y;\nconsole.log(add, divide, multiply)</script>"
 		}
 	]
 }

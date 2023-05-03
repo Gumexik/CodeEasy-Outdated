@@ -111,38 +111,41 @@ const SingleProjectWindow = ({
 								JavaScript
 							</button>
 						</div>
-						<CodeEditor
-							value={`${
-								clickedBtn === "html" ? html : clickedBtn === "js" ? js : css
-							}`}
-							language={`${
-								clickedBtn === "html"
-									? "html"
-									: clickedBtn === "js"
-									? "javascript"
-									: "css"
-							}`}
-							placeholder={`${
-								clickedBtn === "html"
-									? "Enter HTML here (You are within the body of the document)"
-									: clickedBtn === "js"
-									? "Enter JavaScript here."
-									: "Enter CSS here"
-							}`}
-							onChange={(e) => {
-								if (clickedBtn === "html") {
-									setHtml(e.target.value);
-								}
-								if (clickedBtn === "css") {
-									setCss(e.target.value);
-								}
-								if (clickedBtn === "js") {
-									setJs(e.target.value);
-								}
-							}}
-							data-color-mode={theme === "dark" ? "dark" : "light"}
-							className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
-						/>
+						<div className=' h-full'>
+							<CodeEditor
+								value={`${
+									clickedBtn === "html" ? html : clickedBtn === "js" ? js : css
+								}`}
+								language={`${
+									clickedBtn === "html"
+										? "html"
+										: clickedBtn === "js"
+										? "javascript"
+										: "css"
+								}`}
+								placeholder={`${
+									clickedBtn === "html"
+										? "Enter HTML here (You are within the body of the document)"
+										: clickedBtn === "js"
+										? "Enter JavaScript here."
+										: "Enter CSS here"
+								}`}
+								onChange={(e) => {
+									if (clickedBtn === "html") {
+										setHtml(e.target.value);
+									}
+									if (clickedBtn === "css") {
+										setCss(e.target.value);
+									}
+									if (clickedBtn === "js") {
+										setJs(e.target.value);
+									}
+								}}
+								data-color-mode={theme === "dark" ? "dark" : "light"}
+								padding={4}
+								className='text-lg  border-black rounded  h-full'
+							/>
+						</div>
 					</div>
 				</div>
 				<div className='md:w-1/2 p-4 dark:text-white block'>

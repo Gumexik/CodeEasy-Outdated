@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import userContext from "../context/userContext";
-const AppFeatures = ({ lesson }) => {
+const AppFeatures = ({ lesson, code, setCode, desc }) => {
 	const { theme } = useContext(userContext);
-	const [code, setCode] = useState("");
+
 	const [srcDoc, setSrcDoc] = useState(` `);
 	const [logs, setLogs] = useState([]);
 
@@ -66,9 +66,9 @@ const AppFeatures = ({ lesson }) => {
 							spellCheck='false'
 							readOnly
 							value={
-								!lesson.description
+								!desc
 									? "Welcome to CodeEasy! Start by chosing option from the side menu"
-									: lesson.description
+									: desc
 							}
 							className='dark:bg-gray-900 bg-gray-300 rounded p-4  w-full h-48 resize-none focus:outline-none'
 						></textarea>
@@ -76,12 +76,12 @@ const AppFeatures = ({ lesson }) => {
 				</div>
 				<div className='h-full'>
 					<CodeEditor
-						value={lesson.code}
+						value={code}
 						language='html'
 						placeholder='Please enter code here.'
 						onChange={(e) => setCode(e.target.value)}
 						data-color-mode={theme === "dark" ? "dark" : "light"}
-						className='text-lg  border-black rounded p-4 h-full w-full resize-none focus:outline-none'
+						className='text-lg border-black rounded p-4 h-full w-full resize-none focus:outline-none'
 					/>
 				</div>
 			</div>
